@@ -1,0 +1,204 @@
+body,ul,p,h1,input{
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: "微软雅黑";
+			}
+			.header-top{
+				width: 1200px;
+				margin: 0 auto;
+				font-size: 12px;
+				line-height: 18px;
+				color: #999;
+				text-align: center;
+				padding: 5px 0;
+			}
+			.header-top:after { content:"."; display:block; height:0; visibility:hidden; clear:both; } 
+			ul {
+				list-style: none;
+			}
+			.header-top ul:after { content:"."; display:block; height:0; visibility:hidden; clear:both; } 
+			.h-right a {
+				text-decoration: none;
+				color: #999;
+				font-size: 12px;
+				line-height: 18px;
+				padding: 0 12px;
+				display: block;
+			}
+			.h-right .h-r-1>li {
+				float: left;
+				position: relative;
+			}
+			.h-left p{
+				font-size: 12px;
+				line-height: 18px;
+				color: #999;
+			}
+			.h-left{
+				float: left;
+			}
+			.h-right{
+				float: right;
+			}
+			.wrrap{
+				width: 100%;
+				border-bottom: 1px solid #999;
+			}
+			.load {
+				display: none;
+				position: absolute;
+				border: 1px solid black;
+				top: 18px;
+				z-index: 999;
+				background: white;
+				color: black;
+			}
+			.load li {
+				margin: 5px;
+				cursor: pointer;
+			}
+			.h-right img {
+				width: 140px;
+				height: 140px;
+				padding: 10px;
+			}
+			.bg {
+				background: url(../img/Veo_mbshop_spirit_pic.png) 62px -42px no-repeat;
+			}
+			.bg1{
+				background: url(../img/Veo_mbshop_spirit_pic.png) 60px -42px no-repeat;
+				position: relative;
+			}
+			
+
+			/*顶部的中部样式*/
+			.header-center{
+				width: 1200px;
+				margin: 0 auto;
+			}
+			.header-center:after { content:"."; display:block; height:0; visibility:hidden; clear:both; } 
+			.header-center .h-c-1 a{
+				margin-left: -32px;
+				display: block;
+			}
+			.header-center a {
+				text-decoration: none;
+			}
+			.h-c-1,.h-c-2{
+				float: left;
+			}
+			.h-c-2{
+				height: 60px;
+				margin-top: 25px;
+			}
+			.h-c-2:after { content:"."; display:block; height:0; visibility:hidden; clear:both; } 
+			.h-c-3{
+				float: right;
+			}
+			.c-2-1,.c-2-2{
+				float: left;
+			}
+			.c-2-1:after { content:"."; display:block; height:0; visibility:hidden; clear:both; } 
+			#word{
+				width: 270px;
+				height: 28px;
+				float: left;
+				border: 1px solid #d51819;
+			}
+			#btn1{
+				width: 70px;
+				height: 30px;
+				float: left;
+				border: 0;
+				background: #d51819;
+				color: white;
+			}
+			.c-2-2 a {
+				font-size: 12px;
+				color: #666;
+				display: inline-block;
+				line-height: 30px;
+			}
+			.c-2-2 span{
+				display: inline-block;
+				padding: 0 5px;
+				font-size: 12px;
+			}
+			.c-2-2{
+				margin-left: 20px;
+			}
+			.c-2-2 .red {
+				color: #d51819;
+			}
+			.h-c-3{
+				margin: 25px 40px 0 0;
+				background: url(../img/Veo_mbshop_spirit_pic.png) 0 -433px no-repeat;
+				width: 120px;
+    			text-align: right;
+    			line-height: 30px;
+    			font-size: 14px;
+			}
+			.h-c-3 a{
+				color: #000;
+			}
+			.h-c-3 span{
+				color: #d51819;
+				font-size: 18px;
+				margin: 0 3px;
+			}
+			.c-2-1 i{
+				background: url(../img/1.png) center no-repeat;
+				display: block;
+				height: 22px;
+				width: 22px;
+				position: absolute;
+				left: 272px;
+				top: 3px;
+			}
+			.c-2-1 {
+				position: relative;
+			}
+			
+			/*导航栏*/
+			.nav{
+				width: 1200px;
+				margin: 0 auto;
+			}
+			.nav1{
+					position: relative;
+				    padding: 0 10px;
+				    height: 43px;
+				    width: 216px;
+				    line-height: 43px;
+				    cursor: pointer;
+				    color: #fff;
+				    background: #d51819;
+			}
+			.nav1 span{
+				margin-left: 33px;
+			}
+			.nav ul li {
+				float: left;
+    			padding: 0 15px;
+			}
+			.nav ul li a{
+				display: block;
+			}
+			.nav ul:after { content:""; display:block; height:0; visibility:hidden; clear:both; }
+			.nav1 i {
+				background: url(../img/2.png) center no-repeat;
+				display: block;
+				height: 25px;
+				width: 30px;
+				position: absolute;
+				top: 8px;
+			}
+			.line {
+				width: 100%;
+				border-bottom: 1px solid #d51819;
+			}
+			.nav img{
+				display: block;
+			}

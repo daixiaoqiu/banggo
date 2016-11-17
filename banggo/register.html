@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script>
+			$(function(){
+				var str = "";
+					for(var i = 0;i < 4;i++){
+						var num = parseInt(Math.random()*10) % 3;
+						var randomNum = 0;
+						if(num == 0){
+							randomNum = parseInt(Math.random()*1000) % 10 + 48;
+						}
+						if(num == 1){
+							randomNum = parseInt(Math.random()*1000) % 25 + 65;
+						}
+						if(num == 2){
+							randomNum = parseInt(Math.random()*1000) % 25 + 97;
+						}
+						
+						str = str.concat(String.fromCharCode(randomNum));
+					}
+					
+					$("#yanzheng").html(str);
+				
+				$(".yanzheng span").click(function(){
+					str = "";
+					for(var i = 0;i < 4;i++){
+						var num = parseInt(Math.random()*10) % 3;
+						var randomNum = 0;
+						if(num == 0){
+							randomNum = parseInt(Math.random()*1000) % 10 + 48;
+						}
+						if(num == 1){
+							randomNum = parseInt(Math.random()*1000) % 25 + 65;
+						}
+						if(num == 2){
+							randomNum = parseInt(Math.random()*1000) % 25 + 97;
+						}
+						
+						str = str.concat(String.fromCharCode(randomNum));
+					}
+					
+					$("#yanzheng").html(str);
+				})
+				
+				
+				
+				var flag1 = true;
+//				正则匹配
+				var user = "";
+				$(".user input").blur(function(){
+					user = $(".user input").val();
+					if(user.length < 4 || user.length > 20){
+						$(".user p").show();
+						$(".user p").html("用户名小于四位");
+						falg1 = true;
+					}else{
+						$(".user p").hide();
+						flag1 = false;
+					}
+				})
+				
+				var flag2 = true;
+				var pass = "";
+				$(".password input").blur(function(){
+					pass = $(".password input").val();
+					if(pass.length < 6 || pass.length > 20){
+						$(".password p").show();
+						$(".password p").html("请输入符合规定的密码");
+						flag2 = true;
+					}else{
+						$(".password p").hide();
+						flag2 = false;
+					}
+				})
+				
+				
+				var flag3 = true;
+				$(".phone input").blur(function(){
+					var reg = /^1\d{10}$/;
+					var phone = $(".phone input").val();
+					if(reg.test(phone) == false){
+						$(".phone p").show();
+						$(".phone p").html("请输入正确的手机号码");
+						flag3 = true;
+					}else {
+						$(".phone p").hide();
+						flag3 = false;
+					}
+				})
+				
+				var flag4 = true;
+				$(".yanzheng input").blur(function(){
+					var yanzheng1 = $(".yanzheng input").val();
+					var yanzheng2 = $("#yanzheng").text();
+					if(yanzheng1 != yanzheng2){
+						$(".yanzheng p").show();
+						$(".yanzheng p").html("您输入的验证码不正确");
+						flag4 = true;
+					}else{
+						$(".yanzheng p").hide();
+						flag4 = false;
+					}
+				})
+				
+				
+				$(".submit").click(function(){
+					if(flag1 == false && flag2 == false && flag3 == false && flag4 == false){
+						$.cookie("username",user,{expires:7});
+						$.cookie("password",pass,{expires:7});
+						$(".success").show();
+					}else{
+						alert("请按格式正确填写信息");
+					}
+				})
+				
+				
+			})
+		</script>
+		<style>
+			body,h1,ul,input,p {margin: 0;padding: 0;}
+			.Cwrap {width: 980px;margin-left: auto;margin-right: auto;height: 100px;}
+			.Cwrap h1 a {background-image: url(img/logo.jpg);background-repeat: no-repeat;display: block;height:100px;width: 220px;}
+			.RG_type {width: 980px;margin: 0 auto;border-bottom: 2px solid #696969;} 
+			.RG_type a {text-decoration: none; display: block;width: 160px;line-height: 26px;color: white;background: #696969;text-align: center;border-radius: 10px 10px 0 0;}
+			.RG_mbox {width: 980px;margin: 0 auto;margin-top: 10px;overflow: hidden;border: 1px solid #ccc; padding: 0 0 20px 20px;}
+			.RG_title {width: 700px; line-height: 30px;font-size: 14px;margin-top: 20px;}
+			#yanzheng {margin-left: 20px;float: left; width: 80px; line-height: 30px;text-align: center;letter-spacing: 5px;}
+			.user input,.phone input,.password input {width: 220px;height:28px}
+			.user,.phone,.yanzheng,.password {margin-top: 25px;position: relative;width: 700px;}
+			.RG p {font-size: 14px;margin-left: 60px;position: absolute; top: 35px;color: red;display: none;}
+			.RG b {display: block; position: absolute; left: 300px; top: 0; font-size: 14px;font-weight: normal; color: #666;}
+			.yanzheng:after { content:""; display:block; height:0; visibility:hidden; clear:both; }
+			.btn span {width: 150px; line-height: 34px; display: block; background: red;color: white;margin: 30px 0 0 50px;text-align: center;border-radius: 10px;}
+			.RG_left {float: left;}
+			.RG-right{float: right;}
+			.LI_bottom {width: 980px;clear: both;text-align: center;margin: 0 auto;padding-top: 20px;font-size: 12px;}
+			.LI_bottom a {text-decoration: none; color: #000;}
+			.success {width: 500px;height: 200px;background: #fff;position: fixed; top: 50%; left: 50%;margin: -150px 0 0 -250px;z-index: 999;overflow: hidden;display: none;}
+			.success_btn1 {width: 50px;font-size: 14px; line-height: 30px;background: red;text-align: center; float: left; margin-left: 100px;}
+			.success_btn2 {width: 50px; font-size: 14px;line-height: 30px;background: black; color: #fff;text-align: center; float : right; margin-right: 100px;cursor: pointer;}
+			.success_btn1 a {color: white;text-decoration: none;}
+		</style>
+	</head>
+	<body>
+		<div class="Cwrap">
+			<h1 class="logo">
+				<a href="index.html" class="Ldb Lti1000r"></a>
+			</h1>
+		</div>
+		<!--注册页面开始-->
+		<div>
+			<div class="RG_type">
+				<div>
+					<a href="#">手机注册</a>
+				</div>
+			</div>
+			<div class="RG_mbox">
+				<!--普通注册开始-->
+				<!--左边部分-->
+				<div class="RG_left">
+					<div class="RG_title">第一步：填写手机账号信息(以下内容为必填)</div>
+					<div class="RG">
+						<div class="user">
+							<label>用户名：</label><input type="text" name="username" /><b>4-20个字符，推荐使用中文会会员名字。一旦注册成功会员名将不能修改。</b>
+							<p></p>
+						</div>
+						<div class="password">
+							<label>密&nbsp;码：</label><input type="password" name="password" /><b>6-20个字符</b>
+							<p></p>
+						</div>
+						<div class="phone">
+							<label>手机号：</label><input type="text" name="phone" /><b style="line-height: 28px;">请输入您的手机号码。</b>
+							<p></p>
+						</div>
+						<div class="yanzheng">
+							<label style="float: left;line-height: 28px;">验证码:</label><input type="text" name="yanzheng" style="width: 80px; float: left; height: 28px;margin-left: 8px;"/><div id="yanzheng"></div>
+							<span style="font-size: 12px;cursor: pointer;">换一个</span>
+							<p></p>
+						</div>
+						<div class="btn">
+							<span class="submit">注册</span>
+						</div>
+					</div>
+				</div>
+				<div class="RG-right">
+					<img src="img/bgowelcometext.png" />
+				</div>
+			</div>
+		</div>
+		<div class="LI_bottom">
+				美特斯邦威集团网站：
+				<a href="#">美特斯邦威</a>|
+				<a href="#">ME&CITY</a>|
+				<a href="#">CH'IN祺</a>|
+				<a href="#">邦购网</a>
+			</div>
+		<div class="success">
+			<div style="font-size: 20px;font-weight: bold;color: #000;width: 200px;margin: 50px auto;">注册成功</div>
+			<div class="success_btn1"><a href="login.html">去登录</a></div>
+			<div class="success_btn2">关闭</div>
+		</div>
+	</body>
+</html>

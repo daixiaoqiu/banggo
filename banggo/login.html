@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script>
+			$(function(){
+//				验证码
+				var str = "";
+					for(var i = 0;i < 4;i++){
+						var num = parseInt(Math.random()*10) % 3;
+						var randomNum = 0;
+						if(num == 0){
+							randomNum = parseInt(Math.random()*1000) % 10 + 48;
+						}
+						if(num == 1){
+							randomNum = parseInt(Math.random()*1000) % 25 + 65;
+						}
+						if(num == 2){
+							randomNum = parseInt(Math.random()*1000) % 25 + 97;
+						}
+						
+						str = str.concat(String.fromCharCode(randomNum));
+					}
+					
+					$("#yanzheng").html(str);
+				$(".yanzheng span").click(function(){
+					str = "";
+					for(var i = 0;i < 4;i++){
+						var num = parseInt(Math.random()*10) % 3;
+						var randomNum = 0;
+						if(num == 0){
+							randomNum = parseInt(Math.random()*1000) % 10 + 48;
+						}
+						if(num == 1){
+							randomNum = parseInt(Math.random()*1000) % 25 + 65;
+						}
+						if(num == 2){
+							randomNum = parseInt(Math.random()*1000) % 25 + 97;
+						}
+						
+						str = str.concat(String.fromCharCode(randomNum));
+					}
+					
+					$("#yanzheng").html(str);
+				})
+				
+				
+//				点击哪个哪个上面出现红色
+				$(".seltab li").click(function(){
+					var index = $(this).index();
+					$(this).append($(".seltab span"));
+					if(index == 0){
+						$(".user div").html("用户名：");
+						$(".password div").html("密&nbsp;码：");
+						$("#user").focus();
+					}
+					if(index == 1){
+						$(".user div").html("手机号：");
+						$(".password div").html("密&nbsp;码：");
+						$("#user").focus();
+					}
+					if(index == 2){
+						$(".user div").html("卡&nbsp;号：");
+						$(".password div").html("卡密码：");
+						$("#user").focus();
+					}
+				})
+				
+				$("#user").focus();
+				$(".user p").show();
+				
+				$(".formbox input").focus(function(){
+					$(this).siblings("p").show();
+				}).blur(function(){
+					$(this).siblings("p").hide();
+				})
+				
+				
+//				验证登录
+				var user = $.cookie("username");
+				var pass = $.cookie("password");
+				
+				var flag = false;
+				$(".login1").click(function(){
+					if($(".user input").val() == user && $(".password input").val() == pass){
+						if($(".yanzheng input").val() == str){
+							flag = true;
+						}else{
+							alert("验证码错误")
+						}
+					}else{
+						alert("用户名密码不正确")
+					}
+					return flag;
+				})
+				
+			})
+		</script>
+		<style>
+			body,h1,ul,input,p {margin: 0;padding: 0;}
+			.Cwrap {width: 980px;margin-left: auto;margin-right: auto;height: 100px;}
+			.Cwrap h1 a {background-image: url(img/logo.jpg);background-repeat: no-repeat;display: block;height:100px;width: 220px;}
+			.Lfll {float: left;}
+			.LI_main {width: 980px;margin-left: auto;margin-right: auto;}
+			.LI_main:after { content:""; display:block; height:0; visibility:hidden; clear:both; }
+			.seltab ul li {width: 112px;float: left;text-align: center;cursor: pointer;line-height: 36px;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;position: relative;}
+			.seltab ul {list-style: none;}
+			.seltab ul:after,.user:after,.password:after,.yanzheng:after { content:""; display:block; height:0; visibility:hidden; clear:both; }
+			.formarea {width: 338px;}
+			.rarea {float: left;border: 1px solid #ccc;}
+			.formbox {padding: 20px;border-bottom: 1px solid #ccc;}
+			.user {margin-top: 25px;}
+			.password {margin-top: 25px;}
+			.yanzheng {margin-top: 25px;}
+			.user input,.password input {width: 220px;height:28px}
+			.yanzheng input {width: 80px; float: left; height: 28px;margin-left: 8px;}
+			#yanzheng {margin-left: 20px;float: left; width: 80px; line-height: 30px;text-align: center;letter-spacing: 5px;}
+			.remenber {margin-left: 60px;margin-top: 20px;}		
+			.login {margin-top: 20px; margin-left: 60px; overflow: hidden;}
+			.login1 {float:left;display: inline-block; width: 104px;height: 34px;line-height: 34px;cursor: pointer;background: url(img/login/buttons.png) no-repeat;}
+			.find {margin-left:20px;font-size: 12px;line-height: 30px;display: inline-block;cursor: pointer;float: left;}
+			.find:hover {color: #FF6600;}
+			.bottom a {margin-left: 10px; border: 1px solid #ccc;text-decoration: none;text-align: center;display: inline-block;padding: 5px;background: #ccc;font-size: 12px;color: #000;}
+			.bottom span {font-size:12px;}
+			.bottom {margin: 20px;}
+			.login_surport h4 {background: #efefef;margin: 0;line-height: 32px;padding: 0 8px;font-weight: normal;font-size: 12px;}
+			.login_surport {margin:10px;}
+			.login_surport a {background: #FFF url(img/login/icon_login.png) no-repeat;cursor: pointer;padding: 0;border: 1px solid #efefef;margin: -1px;display: block;float: left;width: 100px;height: 30px;line-height: 30px;text-indent: 38px;font-size: 12px;}
+			.login_surport a.icon_qq {background-position: 7px -6px;}
+			.login_surport a.icon_alipay {background-position: 7px -56px;}
+			.login_surport a.icon_weibo {background-position: 7px -195px;}
+			.login_surport a.icon_weixin {background-position: 7px -101px;}
+			.login_surport a.icon_renren {background-position: 7px -145px;}
+			.login_surport p:after { content:""; display:block; height:0; visibility:hidden; clear:both; } 
+			.LI_bottom {width: 980px;clear: both;text-align: center;margin: 0 auto;padding-top: 20px;font-size: 12px;}
+			.LI_bottom a {text-decoration: none; color: #000;}
+			.seltab span {position: absolute;width: 112px;display: block;height: 2px;top: -3px;left: 0;z-index: 999;background: #c00;}
+			.formbox p {font-size: 12px;margin-left: 60px;position: absolute; top: 35px;display: none;}
+		</style>
+	</head>
+	<body>
+		<!--邦购logo-->
+		<div>
+			<div class="Cwrap">
+				<h1 class="logo">
+					<a href="index.html" class="Ldb Lti1000r"></a>
+				</h1>
+			</div>
+			<div class="LI_main">
+				<div class="Lfll">
+					<a href="#">
+						<img src="img/login/login_banner.jpg"/>
+					</a>
+				</div>
+				<div class="rarea">
+					<div class="seltab">
+						<ul>
+							<li class="hover">账户登录<span></span></li>
+							<li>手机登录</li>
+							<li style="border-right: 0;">卡号登录</li>
+						</ul>
+					</div>
+					<div class="formarea">
+						<div class="formbox">
+							<form>
+								<!--用户名-->
+								<div class="user" style="position: relative;">
+									<div style="float: left;line-height: 28px;">用户名：</div><input type="text" name="user" id="user"/>
+									<p>请输入用户名</p>
+								</div>
+								<div class="password" style="position: relative;">
+									<div style="float: left;line-height: 28px;">密&nbsp;码：</div><input type="password" name="user" id="user"/>
+									<p>请输入密码</p>
+								</div>
+								<div class="yanzheng" style="position: relative;">
+									<div style="float: left;line-height: 28px;">验证码:</div><input type="text" /><div id="yanzheng"></div>
+									<span style="font-size: 12px;cursor: pointer;">换一个</span>
+									<p>请输入验证码</p>
+								</div>
+								<div class="remenber">
+									<div>
+										<input type="checkbox" checked="checked" name="remenbername"/><label>记住用户名</label>&nbsp;&nbsp;
+										<input type="checkbox" name="remenberpassword" /><label>记住密码</label>
+									</div>
+								</div>
+								<div class="login">
+									<div>
+										<a href="index.html" class="login1"></a>
+									</div>
+									<a href="#" class="find">找回密码？</a>
+								</div>
+							</form>
+						</div>
+						<div class="bottom">
+							<span>还不是邦购网用户？马上加入吧~~~</span>
+							<a href="register.html">免费注册>></a>
+						</div>
+						<div class="login_surport">
+							<h4>或者使用合作网站登录：</h4>
+							<p>
+								<a class="icon_qq">QQ</a>
+								<a class="icon_alipay">支付宝</a>
+								<a class="icon_weibo">新浪微博</a>
+								<a class="icon_weixin">微信</a>
+								<a class="icon_renren">人人网</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="LI_bottom">
+				美特斯邦威集团网站：
+				<a href="#">美特斯邦威</a>|
+				<a href="#">ME&CITY</a>|
+				<a href="#">CH'IN祺</a>|
+				<a href="#">邦购网</a>
+			</div>
+		</div>
+	</body>
+</html>

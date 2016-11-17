@@ -1,0 +1,289 @@
+			.banner{
+				width: 1200px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			dl,dd,ul,input{
+				margin: 0;
+				padding: 0;
+			}
+			.banner-left li>dl{
+				padding-bottom: 15px;
+				font-size: 14px;
+			}
+			.banner-left dd{
+				float: left;
+				padding: 0 7px 0 0;
+				font-size: 14px;
+			}
+			.banner-left dd a{
+				color: #696969;
+				display: block;
+				line-height: 20px;
+			}
+			.banner-left{
+			    width: 234px;
+			    height: 530px;
+			    border: 1px solid #d51819;
+		        border-top: 0;
+    			padding-left: 10px;
+    			line-height: 18px;
+			}
+			.banner-left li {
+				position: relative;
+				background: white;
+			}
+			.banner-left dl:after { content:""; display:block; height:0; visibility:hidden; clear:both; } 
+			.banner-left dt a{
+				font-weight: bold;
+				color: #000;
+			}
+			a{
+				text-decoration: none;
+			}
+			.banner-left li dl>dt {
+				position: relative;
+			}
+			.icon{
+			    position: absolute;
+			    right: 10px;
+			    top: 2px;
+			    width: 9px;
+			    height: 14px;
+			    font-size: 14px;
+			    color: #d51819;
+			    font-weight: bold;
+			    font-style: normal;
+			}
+			.ban-hide{
+				position: absolute;
+				width: 718px;
+    			height: 529px;
+    			left: 234px;
+    			overflow: hidden;
+    			border: 1px solid #999;
+    			z-index: 999;
+    			display: none;
+    			background: white;
+			}
+			.ban-hide .hide-l dl {
+				width: 161px;
+				font-size: 14px;
+				line-height: 28px;
+				margin-left: 15px;
+			}
+			.hide-l dd {
+				margin: 3px 8px;
+			}
+			.ban-hide dl:after { content:""; display:block; height:0; visibility:hidden; clear:both; }
+			.hide-l,.logo{
+				float: left;
+			}
+			.logo1 dl {
+				width: 540px;
+				overflow: hidden;
+			}
+			.logo .logo1 dd{
+				float: left;
+				padding: 10px 10px;
+			}
+			.logo .logo1 dt{
+				margin: 10px;
+				font-weight: bold;
+				font-size: 14px;
+			}
+			.logo .logo1 dd img{
+				width: 110px;
+				height: 35px;
+			}
+			.logo {
+				border-left: 1px solid #999;
+			}
+			
+
+			/*/*轮播图   和   右边广告*/
+			.ban .list li {
+				height: 474px;
+				width: 720px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.list {
+				width: 718px;
+				height: 474px;
+				position: absolute;
+				overflow: hidden;
+			}
+			.ban {
+				width: 718px;
+				overflow: hidden;
+				position: relative;
+				height: 530px;
+			}
+			.ban:hover .ban-btn1,.ban:hover .ban-btn2{
+				display: block;
+			}
+			.ban-btn1,.ban-btn2{
+				    width: 10px;
+				    height: 50px;
+				    position: absolute;
+				    top: 40%;
+				    font-size: 80px;
+				    cursor: pointer;
+				    display: none;
+				    color: gray;
+			}
+			.ban-btn1{
+				left: 0;
+			}
+			.ban-btn2{
+				right: 50px;
+			}
+			.ban-dian li{
+				float: left;
+				width: 119px;
+				text-align: center;
+				line-height: 55px;
+				position: relative;
+				cursor: pointer;
+				color: #666666;
+				font-weight: bold;
+				font-size: 14px;
+				overflow: hidden;
+			}
+			.ban-dian{
+				overflow: hidden;
+				position: absolute;
+				top: 474px;
+				border: 1px solid #666;
+				border-top: 0;
+				border-left: 0;
+			}
+			.banner-left,.ban{
+				float: left;
+			}
+			.ban-dian span{
+				width: 118px;
+				display: block;
+				position: absolute;
+				top: 0px;
+				left: 0;
+				background: red;
+				height: 3px;
+			}
+			.list img{
+				display: block;
+			}
+			.ban-dian i {
+				display: inline-block;
+				font-style: normal;
+				float: right;
+			}
+			.ban-img {
+				float: right;
+			}
+			
+
+			/*小滚动图*/
+			.red{
+				color: #d51819 !important;
+			}
+			.hot-brand{
+				margin-top: 10px;
+				height: 120px;
+			}
+			.hot-brand-1{
+				width: 1200px;
+				margin: 0 auto;
+				overflow: hidden;
+				position: relative;
+				height: 120px;
+			}
+			.hot-brand-1 ul li{
+				width: 235px;
+				height: 120px;
+				float: left;
+				margin-right: 4px;
+			}
+			.hot-brand-1 ul{
+				width: 2396px;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.hot-brand span{
+			    display: block;
+			    z-index: 999;
+			    width: 40px;
+			    height: 40px;
+			    position: absolute;
+			    right: 8px;
+			    top: 46px;
+			    cursor: pointer;
+			}
+			.hot-brand .rec_btn_rt{
+				left: 3px;
+			}
+			.banner-left a{
+				font-family: "Microsoft YaHei";
+			}
+			
+			/*内容样式  男生*/
+			.man-top{
+				right: 0;
+				position: absolute;
+				top: 30px;
+				width: 600px;
+			    text-align: right;
+			    z-index: 5;
+			}
+			.man {
+				position: relative;
+			}
+			.man-top a{
+			    display: inline-block;
+			    min-width: 50px;
+			    text-align: center;
+			    color: #999;
+			    font-size: 14px;
+			    line-height: 24px;
+			    margin-left: 15px;
+			    margin-right: 15px;
+			}
+			.link{
+				font-size: 14px; color: #000;
+			}
+			.good-box .name {
+			    margin-top: 7px;
+			    margin-left: 16px;
+			    margin-right: 16px;
+			    overflow: hidden;
+			    height: 32px;
+			    line-height: 16px;
+			    font-size: 12px;
+			    color: #222;
+			}
+			.a{
+				color: #000;
+			}
+			.good-box .price b{
+			    font-size: 14px;
+			    color: #f8584f;
+			    display: inline-block;
+			    margin-right: 5px;
+			    font-weight: normal;
+			}
+			.good-box .price i{
+				font-style: normal;
+				text-decoration: line-through;
+			    font-size: 12px;
+   				color: #999;
+			}
+			.good-box .price{
+			    margin-top: 2px;
+			    margin-left: 16px;
+			    margin-right: 16px;
+			}

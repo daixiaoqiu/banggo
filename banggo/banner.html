@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script>
+			$(function(){
+				$(".banner-left ul li").mouseover(function(){
+					var top = $(this).offset().top - 158;
+					$(this).find(".ban-hide").show().end().siblings().find(".ban-hide").hide();
+					$(this).find(".ban-hide").css("top",-top);
+					event.stopPropagation();
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div class="banner" style="display: none; background: white;">
+			<!--侧边导航-->
+			<div class="banner-left" style="position: absolute; background: white; z-index: 10;" >
+				<ul>
+					<!--第一级全部分类-->
+					<li>
+						<dl>
+							<dt><a href="#">全部分类</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#" class="red">最新降价</a></dd>
+							<dd><a href="#">外套99元封顶</a></dd>
+							<dd><a href="#" class="red">一件包邮</a></dd>
+							<dd><a href="#">新品返现</a></dd>
+							<dd><a href="#">贴章</a></dd>
+							<dd><a href="#">明星同款</a></dd>
+							<dd><a href="#" class="red">vip尊享</a></dd>
+						</dl>
+						<!--hover时显示部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">商场同款</a></dd>
+									<dd><a href="#">风衣</a></a></dd>
+									<dd><a href="#">夹克</a></dd>
+									<dd><a href="#">裙装</a></dd>
+									<dd><a href="#">背带裙/背带裤</a></dd>
+									<dd><a href="#">阔腿裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">棉衣</a></dd>
+									<dd><a href="#">羽绒服</a></dd>
+									<dd><a href="#">毛衣</a></dd>
+									<dd><a href="#">裤子</a></dd>
+									<dd><a href="#">外套</a></dd>
+									<dd><a href="#">套装</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">随行杯</a></dd>
+									<dd><a href="#">取暖小件</a></dd>
+									<dd><a href="#">创意礼品</a></dd>
+									<dd><a href="#">面膜</a></dd>
+									<dd><a href="#">护肤套装</a></dd>
+									<dd><a href="#">礼盒</a></dd>
+									<dd><a href="#">家居鞋/拖鞋</a></dd>
+									<dd><a href="#">披毯/盖毯</a></dd>
+									<dd><a href="#">保温杯</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOLIU.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级男装-->
+					<li>
+						<dl>
+							<dt><a href="#">男装</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">外套</a></dd>
+							<dd><a href="#" class="red">衬衫</a></dd>
+							<dd><a href="#">牛仔裤</a></dd>
+							<dd><a href="#" class="red">休闲裤</a></dd>
+							<dd><a href="#">毛衣</dd>
+							<dd><a href="#">大衣</dd>
+							<dd><a href="#">卫衣休闲套装</dd>
+							<dd><a href="#" class="red">商务袜</dd>
+						</dl>
+						<!--男装的隐藏div-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOMANN.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级女装装-->
+					<li>
+						<dl>
+							<dt><a href="#">女装</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">风衣</a></dd>
+							<dd><a href="#">外套</a></dd>
+							<dd><a href="#">裙装</a></dd>
+							<dd><a href="#">牛仔裤</a></dd>
+							<dd><a href="#">阔腿裤</a></dd>
+							<dd><a href="#">毛衣</a></dd>
+							<dd><a href="#">卫衣</a></dd>
+							<dd><a href="#">衬衫</a></dd>
+							<dd><a href="#">休闲套装</a></dd>
+						</dl>
+						<!--女装隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAONV.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级儿童-->
+					<li>
+						<dl>
+							<dt><a href="#">儿童</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">卫衣套装</a></dd>
+							<dd><a href="#">外套</a></dd>
+							<dd><a href="#">裤子</a></dd>
+							<dd><a href="#">长袖T恤</a></dd>
+							<dd><a href="#">轻薄羽绒</a></dd>
+							<dd><a href="#">毛衣</a></dd>
+							<dd><a href="#">衬衫</a></dd>
+							<dd><a href="#">童鞋</a></dd>
+							<dd><a href="#">童包</a></dd>
+						</dl>
+						
+						<!--儿童隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOHUANG.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级鞋履-->
+					<li>
+						<dl>
+							<dt><a href="#">鞋履</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">休闲鞋</a></dd>
+							<dd><a href="#">跑步鞋</a></dd>
+							<dd><a href="#">时装鞋</a></dd>
+							<dd><a href="#">帆布鞋</a></dd>
+							<dd><a href="#">滑板鞋</a></dd>
+							<dd><a href="#">靴子</a></dd>
+							<dd><a href="#">篮球鞋</a></dd>
+							<dd><a href="#">商务鞋</a></dd>
+						</dl>
+						<!--鞋子隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOSHOE.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级箱包配饰-->
+					<li>
+						<dl>
+							<dt><a href="#">箱包/配饰</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">双肩包</a></dd>
+							<dd><a href="#">皮带</a></dd>
+							<dd><a href="#">旅行包</a></dd>
+							<dd><a href="#">围巾</a></dd>
+							<dd><a href="#">手套</a></dd>
+						</dl>
+						<!--箱包隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOBAG.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级生活个护-->
+					<li>
+						<dl>
+							<dt><a href="#">生活/个护</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">四件套</a></dd>
+							<dd><a href="#">面霜</a></dd>
+							<dd><a href="#">随行杯</a></dd>
+							<dd><a href="#">时尚耳机</a></dd>
+						</dl>
+						<!--护肤隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOLIFE.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级折扣sale-->
+					<li>
+						<dl>
+							<dt><a href="#">折扣SALE</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">一折区</a></dd>
+							<dd><a href="#">两折区</a></dd>
+							<dd><a href="#">三折区</a></dd>
+						</dl>
+						<!--折扣隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/0801_01x.jpg" />
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

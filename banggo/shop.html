@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车</title>
+		<link rel="stylesheet" href="css/header.css" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script>
+			$(function(){
+				
+				$(".h-right ul li").hover(function(){
+					$(this).find(".load").show();
+					$(this).find("a").css("color","#000");
+				},function(){
+					$(this).find(".load").hide();
+					$(this).find("a").css("color","#999");
+				})
+				
+				if($.cookie('shop_num')=="null"){
+					$(".h-c-3 span").text(0);
+				}else{
+					$(".h-c-3 span").text($.cookie('shop_num'));
+				}
+				
+				
+				
+				
+//				加载底部
+				$(".footer").load("footer.html");
+				
+				
+				
+				if($.cookie("shop_name") != "null"){
+					$(".mbshopAll").show();
+					$(".mbshop_null_1").hide();
+					$(".mbshop-box").append("<ul class='list'></ul>");
+					$(".list").append("<li class='single01'><input type='checkbox' /></li>");
+					$(".list").append("<li class='single02'></li>");
+					$(".single02").append("<dl><dt><img src='"+$.cookie("shop_img")+"'/><dd><a><p>"+$.cookie("shop_name")+"</p><i>"+$.cookie("shop_pdid")+"</i></a></dd></dt></dl>");
+					$(".list").append("<li class='single03'><p>颜色："+$.cookie("shop_color")+"</p><p>尺码："+$.cookie("shop_size")+"</p></li>");
+					$(".list").append("<li class='single04'><i>"+$.cookie("shop_pre_price")+"</i><em>￥ "+$.cookie("shop_price")+"</em></li>");
+					$(".list").append("<li class='single05'></li>");
+					$(".single05").append("<span class='num-edit-cut'>-</span><input type='text' value='"+$.cookie("shop_num")+"' class='num'/><span class='num-edit-add'>+</span>");
+					var price = parseInt( $.cookie("shop_price") );
+					var num = $(".num").val();
+					$(".list").append("<li class='single06'>￥ "+price * num+"</li>");
+					$(".list").append("<li class='single07'><a>移入我的点赞</a><a class='delete'>删除</a></li>");
+			
+					
+				}else{
+					$(".mbshopAll").hide();
+					$(".mbshop_null_1").show();
+				}
+				
+				
+				
+//				减
+				$(".num-edit-cut").click(function(){
+					
+					var num = parseInt( $(this).next(".num").attr("value") );
+					if(num > 1){
+						num--;
+						$(this).next(".num").attr("value",num);
+						
+					}else{
+						$(this).next(".num").attr("value",1);
+					}
+						
+					$.cookie("shop_num",num,{expires:7});
+					
+					var num = $(".num").val();
+					$(".single06").text("￥"+price * num);
+					$(".p5 em").text(num);
+					$(".p4 i").text("￥"+price * num);
+					$(".p3 i").text("￥"+price * num);
+				
+					
+				})
+				
+//				加
+				$(".num-edit-add").click(function(){
+					
+					num = $(this).prev(".num").val();
+					num++;
+					$(this).prev(".num").attr("value",num);
+					$.cookie("shop_num",num,{expires:7});
+					
+					var num = $(".num").val();
+					$(".single06").text("￥"+price * num);
+					$(".p5 em").text(num);
+					$(".p4 i").text("￥"+price * num);
+					$(".p3 i").text("￥"+price * num);
+				})
+				
+				$(".delete").click(function(){
+					$(this).closest("ul").remove();
+//					清空cookie
+					$.cookie("shop_size",null);
+					$.cookie("shop_img",null);
+					$.cookie("shop_color",null);
+					$.cookie("shop_name",null);
+					$.cookie("shop_pdid",null);
+					$.cookie("shop_price",null);
+					$.cookie("shop_pre_price",null);
+					$.cookie("shop_num",null);
+					
+					
+					$(".mbshopAll").hide();
+					$(".mbshop_null_1").show();
+				})
+				
+				
+				
+				$(".p5 em").text(num);
+				$(".p4 i").text("￥"+price * num);
+				$(".p3 i").text("￥"+price * num);
+				
+				
+//				全选
+				$(".cartTop input:checkbox").click(function(){
+					if($(this).attr("checked") == "checked"){
+						$(":checkbox").attr("checked","checked");
+					}else{
+						$(":checkbox").removeAttr("checked");
+					}
+				})
+				
+				$(".mbshop-box input:checkbox").click(function(){
+//					假设全部选中
+					var flag = true;
+					$(".mbshop-box input:checkbox").each(function(index,ele){
+						if(	!$(this).prop("checked") ){
+							flag = false;
+						}
+					})
+					$(".cartTop input:checkbox").prop("checked",flag);
+					$(".balance input:checkbox").prop("checked",flag);
+					$(".banggo_cart_tab input:checkbox").prop("checked",flag);
+				})
+				
+				$(".balance input:checkbox").click(function(){
+					if($(this).attr("checked") == "checked"){
+						$(":checkbox").attr("checked","checked");
+					}else{
+						$(":checkbox").removeAttr("checked");
+					}
+				})
+				
+			
+			})
+		</script>
+		<link rel="stylesheet" href="css/header.css" />
+		<style>
+			dl,dd,dt,input{margin: 0;padding: 0;}
+			.mbshop_new_headtop {width: 1200px;margin: 0 auto;}
+			.mbshop_flowHeadContent {width: 1200px;margin: 0 auto;position: relative;height: 26px;}
+			.mbshop_orderFlowstep1 {width: 398px;height: 30px;padding: 0;right: 0;display: block;background-image: url(img/Veo_mbshop_spirit_pic.png);background-repeat: no-repeat;background-position: 0 -1578px;position: absolute;z-index: 1;}
+			.mbshop_cart_1127_tab_up {width: 1200px;margin: 0 auto;font-size: 18px;font-weight: bold;color: #000;line-height: 42px;margin-top: 15px;}
+			.cartTop {width: 1200px;margin: 0 auto;}
+			.cartTop li {float: left;line-height: 40px;font-family: "微软雅黑";}
+			.cartTop ul {overflow: hidden;background: #f8f7f7; font-size: 12px;}
+			.cartTop li input {vertical-align: middle;}
+			.banggo_cart_tab {width: 1175px;margin: 0 auto;margin-top: 20px;font-size: 12px;padding: 0 20px 0 5px;background: #fdf6ee;line-height: 40px;}
+			.banggo_cart_tab em {font-style: normal;float: right}
+			.mbshop-box {width: 1200px; margin: 0 auto;font-size: 12px;}
+			.list{overflow: hidden;padding: 20px 0 20px;height: 120px;}
+			.list li {float: left;line-height: 2em;}
+			.list li dt,.list li dd{float: left;}
+			.list li dl{overflow: hidden;}
+			.single04 i {display: block;font-style: normal;text-decoration: line-through;color: #ccc;}
+			.list li em {font-style: normal;font-weight: bold;}
+			.single01 {width: 38px;}
+			.single02 {width: 335px;}
+			.single02 i {font-style: normal;color: #ccc;}
+			.single02 img {border: 1px solid #ccc; width: 78px;height: 78px; margin-right: 10px;}
+			.single03 {width: 210px;}
+			.single04 {width: 190px;}
+			.single05 span {display: inline-block;width: 16px;height: 23px;line-height: 21px;font-size: 14px;cursor: pointer;border: 1px solid #ccc;border-right: 0;background: #f0f0f0;float: left;}
+			.single05 {width: 200px;overflow: hidden;text-align: center;}
+			.single05 input {width: 40px;height: 21px;float: left;text-align: center;}
+			.single06 {width: 140px;font-weight: bold;color: #f8635b;}
+			.single07 {width: 80px;}
+			.single07 a {display: block;cursor: pointer;}
+			.single07 a:hover{text-decoration: underline;}
+			/*结算*/
+			.balance_box {width: 1200px;margin: 0 auto;height: 60px;overflow: hidden;}
+			.balance label,.balance .p1,.balance .p2{margin-right: 20px;float: left;}
+			.balance .p3,.balance .p4,.balance .p5 {float:right;margin-right: 20px;}
+			.balance {overflow: hidden;line-height: 60px;width: 1048px;background: #f7f7f7;font-size: 14px;float: left;}
+			label b {font-weight: normal;}
+			p i,p em {font-style: normal;}
+			.balance .p5 em {color: red;}
+			.p3 i {color: red;font-size: 18px;}
+			.go_balance {float: left;width: 144px;height: 60px;display: block;background: #f00;color: white;line-height: 60px;text-decoration: none;font-size: 20px;font-weight: bold;text-align: center;}
+			.mbshopAll {display: none;}
+			.mbshop_null {display: block;width: 1200px;margin: 0 auto;}
+			.mbshop_null_1 {width: 400px;margin: 0 auto;height: 200px;padding-top: 100px;}
+			.mbshop_null_1 a {color: red;}
+		</style>
+	</head>
+	<body>
+		<!--顶部-->
+		<div class="wrrap">
+			<!--顶部-->
+			<div class="header-top">
+				<div class="h-left">
+					<p>欢迎来到邦购,全场满199包邮</p>
+				</div>
+				<div class="h-right">
+					<ul class="h-r-1">
+						<li><a href="login.html">登录</a>
+							<ul class="load" style="left: 10px; width: 90px;">
+								<li>QQ账户登录</li>
+								<li>支付宝登录</li>
+								<li>微信账号登录</li>
+							</ul>
+						</li>
+						<li><a href="register.html">注册</a></li>
+						<li><a href="#" class="bg">我的邦购</a>
+							<ul class="load" style="left: 10px;">
+								<li>我的订单</li>
+								<li>我的积分</li>
+								<li>我的点赞</li>
+								<li>我的地址</li>
+							</ul>
+						</li>
+						<li><a href="#">会员中心</a></li>
+						<li>
+							<a href="#" class="bg1">
+								<b style="width:9px;height:18px;background:url(img/Iphone-vertical.png) 0 0 no-repeat; position: absolute; left:0;top: 0;"></b>
+							下载APP</a>
+							<div class="load" style="left: 0px;">
+								<img src="img/mbshop_pic_erweima.jpg" />
+							</div>
+						</li>
+						<li><a href="#">微博</a></li>
+						<li><a href="#">微信</a>
+							<div class="load" style="right: 10px;">
+								<img src="img/mbshop_pic_mobile.png" />
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+		<!--logo-->
+		<div>
+			<div class="mbshop_new_headtop">
+				<a href="index.html">
+					<img src="img/logo.jpg" />
+				</a>
+			</div>
+		</div>
+		<div style="border-bottom: 1px solid #666;">
+			<div class="mbshop_flowHeadContent">
+				<div class="mbshop_orderFlowstep1"></div>
+			</div>
+		</div>
+		<!--购物车-->
+		<div class="mbshop_cart_1127_tab_up">
+			<div>购物袋</div>
+		</div>
+		<!--商品信息-->
+		<div class="cartTop">
+			<ul>
+				<li style="width: 126px;">
+					&nbsp;&nbsp;<input type="checkbox" name="checkAll"/>&nbsp;<b style="font-weight: normal;">全选</b>
+				</li>
+				<li style="width: 250px;">商品信息</li>
+				<li style="width: 208px;">颜色尺码</li>
+				<li style="width: 210px;">单价（元）</li>
+				<li style="width: 177px;">数量</li>
+				<li style="width: 155px;">小计</li>
+				<li style="width: 74px;">操作</li>
+			</ul>
+		</div>
+		<!--购买的物品-->
+		<div class="mbshopAll">
+			<div class="banggo_cart_tab">
+				<label>
+					<input type="checkbox" />
+					<b>邦购</b>
+				</label>
+				<em>满199包邮</em>
+			</div>
+			<div class="mbshop-box">
+				<!--<ul class="list">
+					<li class="single01">
+						<input type="checkbox" />
+					</li>
+					<li class="single02">
+						<dl>
+							<dt><img src="img/details/753216_30_00--w_90_h_90.jpg"/></dt>
+							<dd>
+								<a>
+									<p>男口袋细节送腰带修身长裤</p>
+									<i>商品编号：753216</i>
+								</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="single03">
+						<p>颜色：石狮灰</p>
+						<p>尺码：(M:170/76A)</p>
+					</li>
+					<li class="single04">
+						<i>￥199</i>
+						<em>￥129</em>
+					</li>
+					<li class="single05">
+						<span class="num-edit-cut">-</span>
+						<input type="text" value="1" class="num"/>
+						<span class="num-edit-add">+</span>
+					</li>
+					<li class="single06">159</li>
+					<li class="single07">
+						<a>移入我的点赞</a>
+						<a class="delete">删除</a>
+					</li>
+				</ul>-->
+			</div>
+			<!--结算-->
+			<div class="balance_box">
+				<div class="balance">
+					<label>
+						<input type="checkbox" />
+						<b>全选</b> 
+					</label>
+					<p class="p1">删除选中商品</p>
+					<p class="p2">清除失效商品</p>
+					<p class="p3">合计(不含运费)：
+						<i></i>
+					</p>
+					<p class="p4">商品总价
+						<i></i>
+						优惠
+						<em>0</em>
+					</p>
+					<p class="p5">
+						已选商品
+						<em></em>
+						件
+					</p>
+				</div>
+				<a href="#" class="go_balance">去结算</a>
+			</div>
+			
+		</div>
+		<div class="mbshop_null">
+			<div class="mbshop_null_1">
+				您的购物车还是空的，赶紧行动吧！<a href="index.html">去选购商品</a>
+			</div>
+			
+		</div>
+		<div class="footer"></div>
+	</body>
+</html>

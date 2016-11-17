@@ -1,0 +1,4276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script>
+			$(function(){
+				//加载头部
+				$(".head").load("header.html");
+				//加载尾部
+				$(".footer").load("footer.html");
+				//点击出现二级菜单
+				
+				$(".banner-left ul li").hover(function(){
+					var top = $(this).offset().top - 158;
+					$(this).find(".ban-hide").show();
+					$(this).find(".ban-hide").css("top",-top);
+				},function(){
+					$(this).find(".ban-hide").hide();
+				})
+				//隐藏部分图片hover时的透明度改变
+				$(".banner-left ul li .logo img").hover(function(){
+					$(this).fadeTo(500,0.8);
+				},function(){
+					$(this).fadeTo(500,1);
+				})
+				$(".ban-hide dl dt a").hover(function(){
+					$(this).css("color","#d51819");
+				},function(){
+					$(this).css("color","#000");
+				})
+				
+				
+				//轮播图
+				var index = 0;
+				var size = $(".list li").size();
+//				往右
+				$(".ban-btn1").click(function(){
+					moveR();
+				})
+				
+//				往左
+				$(".ban-btn2").click(function(){
+					index--;
+					if(index == -1){
+						index = size-1;
+					}
+					$(".list li").eq(index).stop(true).fadeIn().siblings().stop(true).fadeOut();
+					$(".ban-dian li").eq(index).append($(".ban-dian span")).css("color","#000").siblings().css("color","#666");
+				})
+				
+				
+//				当ban-dian被hover的时候
+				var i = false;
+				$(".ban-dian li").hover(function(){
+					if(!i){
+						i = true;
+						index = $(this).index();
+						$(this).append($(".ban-dian span")).css("color","#000").siblings().css("color","#666");
+						$(".list li").eq(index).stop(true).fadeIn(1,function(){
+							i = false;
+						}).siblings().stop(true).fadeOut(1);
+					}
+					
+				})
+
+//				自动轮播
+				var timer = setInterval(function(){
+					moveR();
+				},3000);
+				
+
+				
+//				当ban盒子被hover的时候停止定时器
+				$(".ban").hover(function(){
+					clearInterval(timer);
+				},function(){
+					timer = setInterval(function(){
+						moveR();
+					},3000);
+				});
+				
+				//往右的方法
+				function moveR(){
+					index++;
+					if(index == size){
+						index = 0;
+					}
+					$(".list li").eq(index).stop().fadeIn().siblings().stop().fadeOut();
+					$(".ban-dian li").eq(index).append($(".ban-dian span")).css("color","#000").siblings().css("color","#666");
+				}
+				
+				
+				//当轮播图被hover是透明度改变
+//				$(".list li").hover(function(){
+//					$(this).fadeTo(500,0.8);
+//				},function(){
+//					$(this).fadeTo(500,1);
+//				})
+				
+				
+				//当class等于hover的属性被hover时改变其透明度
+				$(".hover").hover(function(){
+					$(this).stop(true).fadeTo(1000,0.6);
+				},function(){
+					$(this).stop(true).fadeTo(1000,1);
+				})
+				
+				
+				//hot-brand
+				$(".hot-brand .rec_btn_rt").click(function(){
+					$(".hot-brand ul").animate({left:-1200})
+				})
+				$(".hot-brand .rec_btn_lf").click(function(){
+					$(".hot-brand ul").animate({left:0})
+				})
+				
+				// 内容  导航
+				$(".man-top a").click(function(){
+					var index = $(this).index()/2;
+					$(this).css({"color":"#f8584f","border-bottom":"2px solid #f8584f"}).siblings().css({"color":"#999","border-bottom":"0"});
+//					所有的内容导航栏通用
+					$(this).parent().siblings().children("div").eq(index).show().siblings().hide();
+					return false;
+				})
+				
+//				用json加载图片
+				$.ajax({
+					type:"post",
+					url:"data/pic.json",
+					success:function(data){
+						$.each(data, function(index,ele) {
+							$(".hot-brand-1 ul").append("<li class='hover'><a href='#'><img src = '"+ele+"'/></a></li>")
+						});
+					}
+				});
+				
+				
+				
+				
+//				返回顶部
+				$(window).scroll(function(){
+					if($(window).scrollTop() > $(window).height()){
+						$(".new_mbshop_btn_topred").show();
+					}else{
+						$(".new_mbshop_btn_topred").hide();
+					}
+				})
+				
+//				点击回到顶部
+				$(".new_mbshop_btn_topred").click(function(){
+					$("body").animate({scrollTop:0},1000);
+				})
+			})
+		</script>
+		<style>
+			.new_mbshop_topandconsult {width: 60px;height: auto;display: block;position: fixed;right: 0;bottom: 30px;overflow: hidden;}
+			.new_mbshop_btn_topred {width: 55px;height: 90px;float: left;display: none;margin-bottom: 10px;background: url(img/Veo_mbshop_spirit_pic.png) 0 -1060px no-repeat;cursor: pointer;}
+			.mbshop_new_btn_onlineConsultred {width: 55px;height: 55px;float: left;display: block;cursor: pointer;background: url(//s.banggo.com/pub7/images/mbshop/common/online_service.png?t=20160603) no-repeat;}
+		</style>
+		
+	</head>
+	<body>
+		<!--返回顶部-->
+		<div class="new_mbshop_topandconsult">
+			<a class="new_mbshop_btn_topred" title="回到顶部"></a>
+			<a class="mbshop_new_btn_onlineConsultred" title="在线咨询"></a>
+		</div>
+		<!--头部-->
+		<div class="head"></div>
+		<!--banner-->
+		<div class="banner">
+			<!--侧边导航-->
+			<div class="banner-left">
+				<ul>
+					<!--第一级全部分类-->
+					<li>
+						<dl>
+							<dt><a href="#">全部分类</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#" class="red">最新降价</a></dd>
+							<dd><a href="#">外套99元封顶</a></dd>
+							<dd><a href="#" class="red">一件包邮</a></dd>
+							<dd><a href="#">新品返现</a></dd>
+							<dd><a href="#">贴章</a></dd>
+							<dd><a href="#">明星同款</a></dd>
+							<dd><a href="#" class="red">vip尊享</a></dd>
+						</dl>
+						<!--hover时显示部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">商场同款</a></dd>
+									<dd><a href="#">风衣</a></a></dd>
+									<dd><a href="#">夹克</a></dd>
+									<dd><a href="#">裙装</a></dd>
+									<dd><a href="#">背带裙/背带裤</a></dd>
+									<dd><a href="#">阔腿裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">棉衣</a></dd>
+									<dd><a href="#">羽绒服</a></dd>
+									<dd><a href="#">毛衣</a></dd>
+									<dd><a href="#">裤子</a></dd>
+									<dd><a href="#">外套</a></dd>
+									<dd><a href="#">套装</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">随行杯</a></dd>
+									<dd><a href="#">取暖小件</a></dd>
+									<dd><a href="#">创意礼品</a></dd>
+									<dd><a href="#">面膜</a></dd>
+									<dd><a href="#">护肤套装</a></dd>
+									<dd><a href="#">礼盒</a></dd>
+									<dd><a href="#">家居鞋/拖鞋</a></dd>
+									<dd><a href="#">披毯/盖毯</a></dd>
+									<dd><a href="#">保温杯</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOLIU.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级男装-->
+					<li>
+						<dl>
+							<dt><a href="#">男装</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">外套</a></dd>
+							<dd><a href="#" class="red">衬衫</a></dd>
+							<dd><a href="#">牛仔裤</a></dd>
+							<dd><a href="#" class="red">休闲裤</a></dd>
+							<dd><a href="#">毛衣</dd>
+							<dd><a href="#">大衣</dd>
+							<dd><a href="#">卫衣休闲套装</dd>
+							<dd><a href="#" class="red">商务袜</dd>
+						</dl>
+						<!--男装的隐藏div-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOMANN.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级女装装-->
+					<li>
+						<dl>
+							<dt><a href="#">女装</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">风衣</a></dd>
+							<dd><a href="#">外套</a></dd>
+							<dd><a href="#" class="red">裙装</a></dd>
+							<dd><a href="#">牛仔裤</a></dd>
+							<dd><a href="#">阔腿裤</a></dd>
+							<dd><a href="#" class="red">毛衣</a></dd>
+							<dd><a href="#">卫衣</a></dd>
+							<dd><a href="#" class="red">衬衫</a></dd>
+							<dd><a href="#">休闲套装</a></dd>
+						</dl>
+						<!--女装隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#" class="red">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#" class="red">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAONV.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级儿童-->
+					<li>
+						<dl>
+							<dt><a href="#">儿童</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">卫衣套装</a></dd>
+							<dd><a href="#" class="red">外套</a></dd>
+							<dd><a href="#">裤子</a></dd>
+							<dd><a href="#" class="red">长袖T恤</a></dd>
+							<dd><a href="#">轻薄羽绒</a></dd>
+							<dd><a href="#">毛衣</a></dd>
+							<dd><a href="#" class="red">衬衫</a></dd>
+							<dd><a href="#">童鞋</a></dd>
+							<dd><a href="#">童包</a></dd>
+						</dl>
+						
+						<!--儿童隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOHUANG.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级鞋履-->
+					<li>
+						<dl>
+							<dt><a href="#">鞋履</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#" class="red">休闲鞋</a></dd>
+							<dd><a href="#">跑步鞋</a></dd>
+							<dd><a href="#">时装鞋</a></dd>
+							<dd><a href="#">帆布鞋</a></dd>
+							<dd><a href="#" class="red">滑板鞋</a></dd>
+							<dd><a href="#">靴子</a></dd>
+							<dd><a href="#">篮球鞋</a></dd>
+							<dd><a href="#" class="red">商务鞋</a></dd>
+						</dl>
+						<!--鞋子隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOSHOE.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级箱包配饰-->
+					<li>
+						<dl>
+							<dt><a href="#">箱包/配饰</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">双肩包</a></dd>
+							<dd><a href="#" class="red">皮带</a></dd>
+							<dd><a href="#" class="red">旅行包</a></dd>
+							<dd><a href="#">围巾</a></dd>
+							<dd><a href="#" class="red">手套</a></dd>
+						</dl>
+						<!--箱包隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOBAG.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级生活个护-->
+					<li>
+						<dl>
+							<dt><a href="#">生活/个护</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#" class="red">四件套</a></dd>
+							<dd><a href="#">面霜</a></dd>
+							<dd><a href="#" class="red">随行杯</a></dd>
+							<dd><a href="#">时尚耳机</a></dd>
+						</dl>
+						<!--护肤隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/DAOLIFE.jpg" />
+								</div>
+								<div class="logo1">
+									<dl>
+										<dt>当季流行品牌</dt>
+										<dd><a href="#"><img src="img/mingjiang.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/nike.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/omentar.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/minimoomoo.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/sp2.jpg"/></a></dd>
+										<dd><a href="#"><img src="img/septwolves.jpg" /></a></dd>
+										<dd><a href="#"><img src="img/MISU.jpg"/></a></dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!--第一级折扣sale-->
+					<li>
+						<dl>
+							<dt><a href="#">折扣SALE</a>
+								<i class="icon">></i>
+							</dt>
+							<dd><a href="#">一折区</a></dd>
+							<dd><a href="#" class="red">两折区</a></dd>
+							<dd><a href="#">三折区</a></dd>
+						</dl>
+						<!--折扣隐藏部分-->
+						<div class="ban-hide">
+							<div class="hide-l">
+								<dl>
+									<dt><a href="#">男生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">女生热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">儿童热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="#">生活热门</a></dt>
+									<dd><a href="#">冬新品</a></dd>
+									<dd><a href="#">新品夹克</a></dd>
+									<dd><a href="#">冬装夹克</a></dd>
+									<dd><a href="#">衬衫</a></dd>
+									<dd><a href="#">慢跑裤</a></dd>
+									<dd><a href="#">百搭休闲裤</a></dd>
+								</dl>
+							</div>
+							<!--logo显示部分-->
+							<div class="logo">
+								<div>
+									<img src="img/0801_01x.jpg" />
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!--轮播图-->
+			<div class="ban">
+				<ul class="list">
+					<li style="display: block;"><img src="img/pclb.jpg"/></li>
+					<li><img src="img/sylb-sygm.jpg"/></li>
+					<li><img src="img/sylb-ywnbqey.jpg"/></li>
+					<li><img src="img/sylb-qxpzj.jpg"/></li>
+					<li><img src="img/sylb-qjtx118.jpg"/></li>
+					<li><img src="img/1018-lb.jpg"/></li>
+				</ul>
+				<ul class="ban-dian">
+					<li style="color: #000000; width: 121px;">品牌钜惠
+						<i>|</i>
+						<span></span>
+					</li>
+					<li>十月新衣革命
+						<i>|</i>
+					</li>
+					<li>棉雨专区
+						<i>|</i>
+					</li>
+					<li>秋新品直降
+						<i>|</i>
+					</li>
+					<li>秋季特享
+						<i>|</i>
+					</li>
+					<li>品牌推荐
+					</li>
+				</ul>
+				<span class="ban-btn1"><</span>
+				<span class="ban-btn2">></span>	
+			</div>
+			<!--右侧广告-->
+			<div class="ban-img">
+				<ul>
+					<li><a href="#" class="hover"><img src="img/miaosha.jpg" /></a></li>
+					<li><a href="#" class="hover"><img src="img/sahngouu.jpg" /></a></li>
+				</ul>
+			</div>
+		</div>
+		<!--小滚动图-->
+		<div class="hot-brand">
+			<div class="hot-brand-1">
+				<div>
+					<span class="rec_btn_rt">
+						<img src="img/rec_btn_lt.png" />
+					</span>
+					<span class="rec_btn_lf">
+						<img src="img/rec_btn_rt.png" />
+					</span>
+				</div>
+				<ul>
+					<!--用 ajax和json实现的-->
+					<!--<li class="hover"><a href="#"><img src="img/hot/remenrrtobhj.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/1001-7.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/1001-9.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/1012-2nd.jpg" /></a></li>
+					<li class="hover" style="margin-right: 0;"><a href="#"><img src="img/hot/1012-mj.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/1012-noon.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/1013-remen.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/remendapai2909.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/sdjaeew00gfW.jpg" /></a></li>
+					<li class="hover"><a href="#"><img src="img/hot/xiaowujj-17.jpg" /></a></li>-->
+				</ul>
+			</div>
+		</div>
+		<!--全部内容-->
+		<div class="contain">
+			<!--男生馆-->
+			<div class="man" style="width: 1200px; height: 540px; margin: 0 auto;">
+				<div class="man-top">
+					<a href="#" style="color: #f8584f; border-bottom: 2px solid #f8584f;">热门</a>
+					<span>|</span>
+					<a href="#">热销top</a>
+					<span>|</span>
+					<a href="#">夹克</a>
+					<span>|</span>
+					<a href="#">休闲裤</a>
+				</div>
+				<!--热门-->
+				<div class="man-show">
+					<div class="man-0" style="display: block;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/mamam1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/man/10081_02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_12.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_13.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/man/0831m_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/man/qipilang1_16.png" class="hover"/>
+						</a>
+						
+						<!--大图片-->
+						<a href="#" style="position: absolute; width: 240px; height: 480px; top: 60px; left: 240px; opacity: 1;">
+							<img src="img/man/louceng1018-14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 480px; height: 240px; top: 60px; left: 480px; opacity: 1;">
+							<img src="img/man/asdd104.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 480px; opacity: 1;">
+							<img src="img/man/man131_07.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 720px; opacity: 1;">
+							<img src="img/man/mamqw105.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 960px; opacity: 1;">
+							<img src="img/man/man131_08.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 960px; opacity: 1;">
+							<img src="img/man/man131_09.png" class="hover"/>
+						</a>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">时尚卫衣</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>	
+					</div>
+					<!--热销top-->
+					<div class="man-1" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/mamam1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/man/10081_02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_12.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_13.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/man/0831m_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/man/qipilang1_16.png" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/245185_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE K系列男冲锋衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥404</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/539258_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 男式羊毛双面呢廓型大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/841295_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">THE 2ND LAW 潮流简约个性夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥598</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/846447_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">THE 2ND LAW 潮男立领简约百搭时尚夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥458</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/224219_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男魔术贴中长款棒球领针织开衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥339</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/549115_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 男基本系列针织裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥229</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/722038_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男牛津纺门襟织带长袖衬衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/550168_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 男精致西装长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥259</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/846828_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">雅圣利 雅圣利冬款小中邦休闲鞋</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥160</b>
+								<i>￥599</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man1/537227_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 男式可脱卸内胆外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥379</b>
+								<i>￥999</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">时尚卫衣</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--夹克-->
+					<div class="man-2" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/mamam1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/man/10081_02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_12.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_13.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/man/0831m_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/man/qipilang1_16.png" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/245115_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"  class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">METERSBONWE 男长款棒球衫夹克(女245664）</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+								<i>￥499</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/530219_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;" class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">ME＆CITY 男士绣花棒球夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥279</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/811237_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;" class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">米宿 翻领韩版修身纯色男士夹克(尺码偏大，请拍小一码)</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥159</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/846442_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">THE 2ND LAW 潮男迷彩拼接连帽夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥139</b>
+								<i>￥538</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/245165_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男染整两面穿连帽时尚茄克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥369</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/245143_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男士简洁派克外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/811238_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">米宿 韩版修身型男士印花夹克（不可用红包）</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥159</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/841023_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">雅圣利 2016秋款男装外套连帽运动夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥115</b>
+								<i>￥499</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/245177_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男潮流细节棉布连帽茄克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥314</b>
+								<i>￥369</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/manjake/846454_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">THE 2ND LAW 休闲百搭时尚简约夹克</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥139</b>
+								<i>￥528</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">时尚卫衣</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--休闲裤 -->
+					<div class="man-3" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/mamam1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/man/10081_02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_12.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/man/0831m_13.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/man/0831m_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/man/qipilang1_16.png" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/548260_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"  class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">ME＆CITY 男双褶毛呢长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/548265_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;" class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">ME＆CITY 男含腰带基本长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥349</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/548183_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;" class="hover"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a hover">ME＆CITY 男梭织细节车线休闲五袋裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥139</b>
+								<i>￥349</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/753215_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男磨毛撞色锁眼基本款修身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥144</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/753204_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男口袋细节收脚口梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/811223_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">雅圣利 雅圣利男士运动裤弹力小脚休闲长裤潮款哈伦裤（不可用红包）</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥89</b>
+								<i>￥499</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/817899_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">符号公社 男式纯色舒适百搭休闲长裤（不可用红包）</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥298</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/817908_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">符号公社 男式修身纯色百搭休闲长裤（不可用红包）</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥298</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="details.html">
+									<img src="img/man/753216_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男口袋细节送腰带修身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥169</b>
+								<i>￥199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/man/753116_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 男休闲腰里细节梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">时尚卫衣</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">品质衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+				</div>
+			</div>
+			<!--女生馆-->
+			<div class="man" style="width: 1200px; height: 540px; margin: 0 auto;">
+				<div class="man-top">
+					<a href="#" style="color: #f8584f; border-bottom: 2px solid #f8584f;">热门</a>
+					<span>|</span>
+					<a href="#">热销top</a>
+					<span>|</span>
+					<a href="#">大衣</a>
+					<span>|</span>
+					<a href="#">休闲裤</a>
+				</div>
+				<!--热门-->
+				<div class="man-show">
+					<div class="girl-0" style="display: block;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						
+						<!--大图片-->
+						<a href="#" style="position: absolute; width: 240px; height: 480px; top: 60px; left: 240px; opacity: 1;">
+							<img src="img/girl/loiuasfhnnv.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 480px; height: 240px; top: 60px; left: 480px; opacity: 1;">
+							<img src="img/girl/1017sl1_04.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 480px; opacity: 1;">
+							<img src="img/girl/womam13sl1_07.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 720px; opacity: 1;">
+							<img src="img/girl/1017sl1_05.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 960px; opacity: 1;">
+							<img src="img/girl/womam13sl1_08.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 960px; opacity: 1;">
+							<img src="img/girl/1008sl1_09.png" class="hover"/>
+						</a>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>	
+					</div>
+					<!--热销top-->
+					<div class="girl-1" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/245686_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE K系列女冲锋衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥404</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539898_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女短款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224682_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女针织长款连帽开衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥369</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/231623_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女MTEE迪士尼家族梭织外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539903_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女围裹式大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514650_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女针织呢长大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥839</b>
+								<i>￥1199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/534574_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女式长款休闲外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/584909_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女丝绒小斜挎包</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224692_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼接连帽长款夹克外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥359</b>
+								<i>￥399</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/713882_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女小刺绣宽松卫衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥118</b>
+								<i>￥139</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--大衣-->
+					<div class="girl-2" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514644_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女空气层剪边大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539899_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女长款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539905_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女毛领毛呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥24999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539925_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女双面呢收身外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239877_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼爱心落肩大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539915_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女中长款连帽大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1700</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239888_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女立领舒适感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239885_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女强梭呢猎装拉链大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239838_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女高级手工都市感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224693_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女提花面料长款西外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥269</b>
+								<i>￥299</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--休闲裤-->
+					<div class="girl-3" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248777_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女宽松腰头梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥191</b>
+								<i>￥239</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248708_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女腰部细节高腰超级紧身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548630_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女松紧腰头呢料长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548633_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女方格锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248760_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 【一件包邮】女基本五袋裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥127</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248806_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548536_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接梭织运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥349</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548634_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女呢料阔腿八分裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248733_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女基本打底九分梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548606_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+
+				</div>	
+			</div>
+			<!--儿童馆-->
+			<div class="man" style="width: 1200px; height: 540px; margin: 0 auto;">
+				<div class="man-top">
+					<a href="#" style="color: #f8584f; border-bottom: 2px solid #f8584f;">热门</a>
+					<span>|</span>
+					<a href="#">热销top</a>
+					<span>|</span>
+					<a href="#">外套</a>
+					<span>|</span>
+					<a href="#">休闲裤</a>
+				</div>
+				<!--热门-->
+				<div class="man-show">
+					<div class="girl-0" style="display: block;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/child/0921qww01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/child/0922kids02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/child/1_11.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/child/otu2.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/child/1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/child/1_12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/child/1_14.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/child/1_15.png" class="hover"/>
+						</a>
+						
+						<!--大图片-->
+						<a href="#" style="position: absolute; width: 240px; height: 480px; top: 60px; left: 240px; opacity: 1;">
+							<img src="img/child/1013kids1.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 480px; height: 240px; top: 60px; left: 480px; opacity: 1;">
+							<img src="img/child/1013kid2.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 480px; opacity: 1;">
+							<img src="img/child/1013kids3.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 720px; opacity: 1;">
+							<img src="img/child/1013kids4.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 960px; opacity: 1;">
+							<img src="img/child/1013kids5.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 960px; opacity: 1;">
+							<img src="img/child/1013kids6.png" class="hover"/>
+						</a>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>	
+					</div>
+					<!--热销top-->
+					<div class="girl-1" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/child/0921qww01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/child/0922kids02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/245686_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE K系列女冲锋衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥404</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539898_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女短款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224682_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女针织长款连帽开衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥369</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/231623_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女MTEE迪士尼家族梭织外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539903_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女围裹式大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514650_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女针织呢长大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥839</b>
+								<i>￥1199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/534574_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女式长款休闲外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/584909_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女丝绒小斜挎包</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224692_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼接连帽长款夹克外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥359</b>
+								<i>￥399</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/713882_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女小刺绣宽松卫衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥118</b>
+								<i>￥139</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--大衣-->
+					<div class="girl-2" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514644_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女空气层剪边大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539899_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女长款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539905_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女毛领毛呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥24999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539925_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女双面呢收身外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239877_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼爱心落肩大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539915_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女中长款连帽大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1700</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239888_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女立领舒适感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239885_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女强梭呢猎装拉链大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239838_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女高级手工都市感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224693_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女提花面料长款西外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥269</b>
+								<i>￥299</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--休闲裤-->
+					<div class="girl-3" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248777_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女宽松腰头梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥191</b>
+								<i>￥239</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248708_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女腰部细节高腰超级紧身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548630_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女松紧腰头呢料长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548633_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女方格锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248760_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 【一件包邮】女基本五袋裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥127</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248806_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548536_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接梭织运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥349</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548634_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女呢料阔腿八分裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248733_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女基本打底九分梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548606_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+
+				</div>	
+			</div>
+			<!--潮牌馆-->
+			<div class="man" style="width: 1200px; height: 540px; margin: 0 auto;">
+				<div class="man-top">
+					<a href="#" style="color: #f8584f; border-bottom: 2px solid #f8584f;">热门</a>
+					<span>|</span>
+					<a href="#">夹克</a>
+					<span>|</span>
+					<a href="#">毛衣/卫衣</a>
+					<span>|</span>
+					<a href="#">长裤</a>
+				</div>
+				<!--热门-->
+				<div class="man-show">
+					<div class="girl-0" style="display: block;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/fashion/BRAND01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/fashion/chaopai02.png" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/fashion/BRAND09.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/fashion/BRAND04.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/fashion/BRAND05.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/fashion/BRAND06.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/fashion/BRAND07.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/fashion/BRAND08.png" class="hover"/>
+						</a>
+						
+						<!--大图片-->
+						<a href="#" style="position: absolute; width: 480px; height: 240px; top: 60px; left: 240px; opacity: 1;">
+							<img src="img/fashion/BRAND10.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 720px; opacity: 1;">
+							<img src="img/fashion/BRAND11.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 960px; opacity: 1;">
+							<img src="img/fashion/BRAND12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 360px; height: 240px; top: 300px; left: 240px; opacity: 1;">
+							<img src="img/fashion/BRAND13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 600px; opacity: 1;">
+							<img src="img/fashion/BRAND14.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 360px; height: 240px; top: 300px; left: 840px; opacity: 1;">
+							<img src="img/fashion/cccc_15.png" class="hover"/>
+						</a>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">柏撒</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">奥米提</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">歌莉娅</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">印心鸟</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">欧琪莲</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">美都汇</a>	
+					</div>
+					<!--热销top-->
+					<div class="girl-1" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/245686_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE K系列女冲锋衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥404</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539898_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女短款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224682_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女针织长款连帽开衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥369</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/231623_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女MTEE迪士尼家族梭织外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539903_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女围裹式大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514650_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女针织呢长大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥839</b>
+								<i>￥1199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/534574_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女式长款休闲外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/584909_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女丝绒小斜挎包</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224692_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼接连帽长款夹克外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥359</b>
+								<i>￥399</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/713882_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女小刺绣宽松卫衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥118</b>
+								<i>￥139</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--大衣-->
+					<div class="girl-2" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514644_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女空气层剪边大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539899_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女长款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539905_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女毛领毛呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥24999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539925_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女双面呢收身外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239877_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼爱心落肩大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539915_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女中长款连帽大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1700</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239888_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女立领舒适感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239885_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女强梭呢猎装拉链大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239838_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女高级手工都市感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224693_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女提花面料长款西外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥269</b>
+								<i>￥299</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--休闲裤-->
+					<div class="girl-3" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248777_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女宽松腰头梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥191</b>
+								<i>￥239</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248708_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女腰部细节高腰超级紧身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548630_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女松紧腰头呢料长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548633_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女方格锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248760_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 【一件包邮】女基本五袋裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥127</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248806_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548536_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接梭织运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥349</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548634_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女呢料阔腿八分裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248733_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女基本打底九分梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548606_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+
+				</div>	
+			</div>
+			<!--生活馆-->		
+			<div class="man" style="width: 1200px; height: 540px; margin: 0 auto;">
+				<div class="man-top">
+					<a href="#" style="color: #f8584f; border-bottom: 2px solid #f8584f;">热门</a>
+					<span>|</span>
+					<a href="#">热销top</a>
+					<span>|</span>
+					<a href="#">内衣袜</a>
+					<span>|</span>
+					<a href="#">四件套</a>
+				</div>
+				<!--热门-->
+				<div class="man-show">
+					<div class="girl-0" style="display: block;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/life/0831s_01.jpg" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/life/lifeww02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/life/WEWEEW_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/life/EWEW_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/life/dijiatinglogo.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/life/0831s_13.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/life/manweilogo.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/life/hanshulogo.jpg" class="hover"/>
+						</a>
+						
+						<!--大图片-->
+						<a href="#" style="position: absolute; width: 240px; height: 480px; top: 60px; left: 240px; opacity: 1;">
+							<img src="img/life/life102010.20_03.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 480px; height: 240px; top: 60px; left: 480px; opacity: 1;">
+							<img src="img/life/life102010.20_04.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 480px; opacity: 1;">
+							<img src="img/life/life102010.20_05.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 720px; opacity: 1;">
+							<img src="img/life/life102010.20_07.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 60px; left: 960px; opacity: 1;">
+							<img src="img/life/life102010.20_08.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 240px; height: 240px; top: 300px; left: 960px; opacity: 1;">
+							<img src="img/life/life102010.20_09.jpg" class="hover"/>
+						</a>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>	
+					</div>
+					<!--热销top-->
+					<div class="girl-1" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/245686_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE K系列女冲锋衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥404</b>
+								<i>￥449</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539898_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女短款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224682_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女针织长款连帽开衫</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥369</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/231623_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女MTEE迪士尼家族梭织外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539903_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女围裹式大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514650_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女针织呢长大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥839</b>
+								<i>￥1199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/534574_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女式长款休闲外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/584909_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女丝绒小斜挎包</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224692_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼接连帽长款夹克外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥359</b>
+								<i>￥399</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/713882_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女小刺绣宽松卫衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥118</b>
+								<i>￥139</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--大衣-->
+					<div class="girl-2" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/514644_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女空气层剪边大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+								<i>￥699</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539899_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女长款双面呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539905_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女毛领毛呢大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥24999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539925_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女双面呢收身外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239877_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女拼爱心落肩大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥699</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/539915_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女中长款连帽大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥1700</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239888_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女立领舒适感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239885_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女强梭呢猎装拉链大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/239838_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女高级手工都市感大衣</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥999</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/224693_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女提花面料长款西外套</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥269</b>
+								<i>￥299</i>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+					<!--休闲裤-->
+					<div class="girl-3" style="display: none;">
+						<div class="man-man" style="position:absolute; width: 1200px; height: 60px; top: 0; left: 0;">
+							<img src="img/girl/mqddsl1_01.png" class="hover"/>
+						</div>
+						<a href="#" style="position: absolute; width: 240px; height: 185px; top: 60px; left: 0px; opacity: 1;">
+							<img src="img/girl/1020sl1_02.jpg" class="hover"/>
+						</a>
+						<div style="position: absolute; width: 240px; height: 115px; top: 246px; left: 0px;">
+							<img src="img/man/3bg.png"/>
+						</div>
+						
+						<!--小图标-->
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_11.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 354px; left: 120px; opacity: 1;">
+							<img src="img/girl/mdsiifef12.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 0px; opacity: 1;">
+							<img src="img/man/0831m_10.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 416px; left: 120px; opacity: 1;">
+							<img src="img/girl/qwesl1_13.png" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 0px; opacity: 1;">
+							<img  src="img/girl/0831f_14.jpg" class="hover"/>
+						</a>
+						<a href="#" style="position: absolute; width: 120px; height: 60px; top: 478px; left: 120px; opacity: 1;">
+							<img src="img/girl/0831f_15.jpg" class="hover"/>
+						</a>
+						<!--商品-->
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248777_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女宽松腰头梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥191</b>
+								<i>￥239</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248708_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女腰部细节高腰超级紧身长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥119</b>
+								<i>￥199</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548630_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女松紧腰头呢料长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥499</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548633_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女方格锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥599</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 60px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248760_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 【一件包邮】女基本五袋裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥127</b>
+								<i>￥169</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 262px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248806_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女锥形裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥199</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 454px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548536_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接梭织运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥129</b>
+								<i>￥349</i>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 646px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548634_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女呢料阔腿八分裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥799</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 838px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/248733_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">METERSBONWE 女基本打底九分梭织长裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥99</b>
+							</div>
+						</div>
+						<div class="good-box" style="position: absolute; width: 170px; height: 230px; top: 300px; left: 1030px;">
+							<!--图片-->
+							<div style="width: 100%; height: 170px; position: relative;">
+								<a href="#">
+									<img src="img/girl/548606_00_m2--w_350.jpg" style="position: absolute; width: 170px; height: 170px; display: block; left: 0px; top: 0px; opacity: 1;"/>
+								</a>
+							</div>
+							<!--商品名-->
+							<div class="name">
+								<a href="#" class="a">ME＆CITY 女拼接运动裤</a>
+							</div>
+							<!--价格-->
+							<div class="price">
+								<b>￥399</b>
+							</div>
+						</div>
+						<!--文字链接-->
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 20px; opacity: 1;" class="link hover">秋冬外套</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 262px; left: 130px; opacity: 1;" class="link hover">暖情毛衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 20px; opacity: 1;" class="link hover">百变衬衫</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 293px; left: 130px; opacity: 1;" class="link hover">休闲长裤</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 20px; opacity: 1;" class="link hover">时尚鞋履</a>
+						<a href="#" style="position: absolute; width: 90px; height: 20px; top: 323px; left: 130px; opacity: 1;" class="link hover">箱包配饰</a>
+					</div>
+
+				</div>	
+			</div>
+		
+		
+		</div>
+		<!--尾部-->
+		<div class="footer"></div>
+	</body>
+</html>

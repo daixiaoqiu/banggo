@@ -1,0 +1,105 @@
+body,ul,p,dl,dt,dd{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				font-family: "微软雅黑";
+			}
+			.foot>ul{
+				list-style: none;
+				overflow: hidden;
+				float: left;
+			}
+			.foot{
+				width: 1200px;
+				margin: 0 auto;
+				margin-top: 53px;
+				overflow: hidden;
+			}	
+			.foot>ul li {
+				border: 1px solid #dcdcdc;
+				width: 279px;
+				float: left;
+				border-right: 0;
+			}
+			.f-service ul{
+				list-style: none;
+				overflow: hidden;
+			}
+			.f-service ul li{
+				float: left;
+				width: 119px;
+				height: 92px;
+				text-align: center;
+				font-size: 12px;
+				background: url(../img/foot/indexline.png) no-repeat right;
+				color: #999;
+			}
+			.f-service ul li img{
+				display: block;
+				margin: 14px auto 8px;
+			}
+			.foot .img img{
+				display: block;
+			}
+			.foot-1{
+				width: 358px;
+			    border: 1px solid #dcdcdc;
+			    background-color: #fafafa;
+			    float: left;
+			}
+			.foot .no-line {
+				background: none;
+			}
+			.bottom a{
+				text-decoration: none;
+				color: #231815;
+				font-size: 12px;
+			}
+			.bottom dl dd{
+				width: 200px;
+				padding-top: 13px;
+			}
+			.bottom dl {
+				float: left;
+			}
+			.bottom dl dt{
+			    width: auto;
+			    font-size: 14px ;
+			    padding-bottom: 10px;
+			    margin-bottom: 5px;
+			    color: #231815;
+			    font-weight: bold;
+			}
+			.b-1-1{
+				overflow: hidden;
+			}
+			.bottom-1{
+				width: 1200px;
+				margin: 0 auto;
+				padding-top: 11px;
+			}
+			.bottom {
+				margin-top: 40px;
+				width: 100%;
+				background: url(../img/foot/1.png) repeat-x;
+			}
+			.copy{
+				margin-top: 20px;
+				border-top: 1px solid #999;
+			    padding: 20px 0 15px 0;
+			}
+			.copy p {
+				text-align: center;
+				color: #787878;
+				font-size: 14px;
+				font-weight: bold;
+			}
+			.copy span{
+			    margin: 0 auto;
+			    padding-top: 15px;
+			    width: 264px;
+			    text-align: center;
+			    display: block;
+			    overflow: hidden;
+			}

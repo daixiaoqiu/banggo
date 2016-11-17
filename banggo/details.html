@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>男口袋细节送腰带修身长裤</title>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script>
+			$(function(){
+				//加载头部
+				$(".header").load("header.html",function(){
+					$(".nav .nav1").mouseover(function(event){
+						$(".banner").show();
+						event.stopPropagation();
+					});
+				});
+				
+				//加载尾部
+				$(".footer").load("footer.html");
+//				
+				//加载banner
+				$(".banner").load("banner.html");
+				
+	
+				$(document).mouseover(function(){
+					$(".banner").hide();
+					$(".mbshop_detail_sharePlugin").hide();
+				})
+				
+				//点击小图片切换大图片  小图片边框变色
+				$(".mbshop_detail_smallPicList ul li").click(function(){
+					var index = $(this).index();
+					$(this).find("img").css("border","1px solid #f60").end().siblings().find("img").css("border","1px solid #c7c7c7");
+					if(index == 4 ){
+						$(".mbshop_detail_bigPicZoom img").css("margin-top","75px");
+					}else{
+						$(".mbshop_detail_bigPicZoom img").css("margin-top","0");
+					}
+					$(".mbshop_detail_bigPicZoom img").attr("src","img/details/big-"+(index+1)+".jpg");
+					$(".mbshop_detail_bigPicPop img").attr("src","img/details/bigbig-"+(index+1)+".jpg")
+				})
+				
+				//hover小图片时边框变色
+				$(".mbshop_detail_smallPicList ul li").hover(function(){
+					$(this).find("img").css("border","1px solid #f60");
+				},function(){
+					$(this).find("img").css("border","1px solid #c7c7c7");
+				})
+				
+				
+//				点击会员规则时弹出详细规则
+				$(".mbshop_detail_rebateRule").hover(function(){
+					$(".mbshop_detail_rebateRule_open").show();
+				},function(){
+					$(".mbshop_detail_rebateRule_open").hide();
+				})
+				
+				
+				$(".mbshop-share").mouseover(function(evt){
+					$(".mbshop_detail_sharePlugin").show();
+					evt.stopPropagation();
+				})
+				$(".mbshop_detail_sharePlugin").mouseover(function(evt){
+					$(".mbshop_detail_sharePlugin").show();
+					evt.stopPropagation();
+				})
+				
+				
+				
+				
+//				颜色尺寸
+				
+				$(".mbshop_detail_color_list dd a").click(function(){
+					$(this).addClass("select").siblings().removeClass("select");
+					$(".mbshop_detail_color_list dt b").text($(this).attr("attr_value"));
+					$(".mbshop_detail_bigPicZoom img").attr("src",$(this).find("img").attr("mid_src")).css("margin-top","0");
+					$(".mbshop_detail_bigPicPop img").attr("src",$(this).find("img").attr("large_src"));
+					
+					
+					shop_img = $(this).find("img").attr("src") ; //cookie 需要用到的商品图片
+					shop_color = $(this).attr("attr_value");   //cookie 需要用到的商品颜色    
+					
+				})
+//				尺寸  库存
+				
+
+				$(".mbshop_detail_size_list dd a:not([class=none])").click(function(){
+					$(this).addClass("select").siblings().removeClass("select");
+					$(".mbshop_detail_size_list dt b").text($(this).attr("attr_value"));
+					$(".mbshop_detail_num strong span").text($(this).attr("stock_num"));
+					
+					shop_size =	$(this).attr("attr_value");  //cookie   需要用到的商品尺寸
+					
+				})
+				
+				
+//				购买数量
+				
+//				减
+				$(".mbshop_detail_buyNum_less").click(function(){
+						var num = parseInt( $(".mbshop_detail_buyNum").attr("value") );
+						num--;
+						$(".mbshop_detail_buyNum").attr("value",num);
+						if(num < 1){
+							$(".mbshop_detail_buyNum").attr("value",1);
+							$(".mbshop_detail_alertclass").show();
+							setTimeout(function(){
+								$(".mbshop_detail_alertclass").hide();
+							},3000);	
+						}
+					})
+//				加
+				$(".mbshop_detail_buyNum_add").click(function(){
+					num = parseInt( $(".mbshop_detail_buyNum").attr("value") );
+					num++;
+					$(".mbshop_detail_buyNum").attr("value",num);
+				})
+				
+//				滑动顶部出现商品详情
+				var top = $(".mbshop_detail_tabNavWrap").offset().top + $(".mbshop_detail_tabNavWrap").outerHeight()+200;
+				$(window).scroll(function(){
+					if($(window).scrollTop() > top){
+						$(".mbshop_detail_tabNav").addClass("detailFloopyfixed");
+						$(".detailFloopyfixed_goods").show();
+						$(".mbshop_detail_tabNav_addToCart").show();
+					}else{
+						$(".mbshop_detail_tabNav").removeClass("detailFloopyfixed");
+						$(".detailFloopyfixed_goods").hide();
+						$(".mbshop_detail_tabNav_addToCart").hide();
+					}
+				})
+				
+				
+//				$(".mbshop_detail_tabNav li").click(function(){
+//					$(this).addClass("mbshop_detail_tabNav_hover").siblings().removeClass("mbshop_detail_tabNav_hover");
+//				})
+//				吸顶楼梯效果
+				var isClick = false;
+				$(window).scroll(function(){
+					if(isClick){
+						return;
+					}
+//					滚动条滚过的距离
+					var scrollTop = $(this).scrollTop();
+					$(".mbshop_detail_boxCon").children("div").each(function(index,ele){
+//						判断临界值   90是吸顶的高度  多出10的预留宽度
+						if(scrollTop > $(this).offset().top-100){
+							$(".mbshop_detail_tabNav li").removeClass("mbshop_detail_tabNav_hover").eq(index).addClass("mbshop_detail_tabNav_hover");
+						}
+					})
+					
+				})
+				
+				
+				$(".mbshop_detail_tabNav li").click(function(){
+						isClick = true;
+						var index = $(this).index()-1;
+						$(this).addClass("mbshop_detail_tabNav_hover").siblings().removeClass("mbshop_detail_tabNav_hover");
+//						获取当前点击哪个li的索引 找出对应的楼层
+						var currentDiv = $(".mbshop_detail_boxCon").children("div").eq(index);
+//						90为吸顶的高度
+						var currentScrollTop = currentDiv.offset().top - 90;
+						
+						$('html,body').animate({scrollTop:currentScrollTop},function(){
+							//动画执行完后，重置点击滚动变量
+							isClick = false;
+						});
+						
+					})
+				
+//				点击选择商品信息 跳到尺寸颜色部位
+				$(".mbshop_detail_tabNav_addToCart").click(function(){
+					$("body").animate({scrollTop:200},1000);
+				})
+				
+				
+				
+//				返回顶部小火箭
+				$(window).scroll(function(){
+					if($(window).scrollTop() > $(window).height()){
+						$(".new_mbshop_btn_topred").show();
+					}else{
+						$(".new_mbshop_btn_topred").hide();
+					}
+				})
+				
+//				点击回到顶部
+				$(".new_mbshop_btn_topred").click(function(){
+					$("body").animate({scrollTop:0},1000);
+				})
+				
+//				放大镜   
+				$(".big-div").mousemove(function(event){
+					$(".bigger").show();
+					$(".mbshop_detail_bigPicPop").show();
+					var x = event.offsetX - 125;
+					var y = event.offsetY - 125;
+					if(x < 0){
+						x = 0;
+					}
+					if(x > 250){
+						x = 250;
+					}
+					if(y < 0){
+						y = 0;
+					}
+					if(y > 250){
+						y = 250;
+					}
+					$(".bigger").css({"top":y,"left":x});
+					$(".mbshop_detail_bigPicPop img").css({"top":-2*y,"left":-2*x});
+				}).mouseleave(function(){
+					$(".bigger").hide();
+					$(".mbshop_detail_bigPicPop").hide();
+				})
+				
+				
+				var shop_size = "";
+				var shop_img = "";
+				var shop_color = "";
+				var shop_name = $(".shop_name b").text()  // 商品名
+				var shop_pdid = $(".mbshop_detail_pdid").text();  //商品编号
+				var shop_price = $(".mbshop_detail_price").find(".price").text(); //价格
+				var shop_pre_price = $(".mbshop_detail_price").find("em").text();   //原价    
+
+
+//				点击加入购物车  保存cookie
+				
+				$(".mbshop_detail_btn_addcart").click(function(){
+					if(shop_color == "" || shop_size == ""){
+						$(".defeat").show();
+					}else{
+						//保存cookie
+						var shop_num = $(".mbshop_detail_buyNum").val();  //数量
+						$.cookie("shop_size",shop_size,{expires:7});
+						$.cookie("shop_img",shop_img,{expires:7});
+						$.cookie("shop_color",shop_color,{expires:7});
+						$.cookie("shop_name",shop_name,{expires:7});
+						$.cookie("shop_pdid",shop_pdid,{expires:7});
+						$.cookie("shop_price",shop_price,{expires:7});
+						$.cookie("shop_pre_price",shop_pre_price,{expires:7});
+						$.cookie("shop_num",shop_num,{expires:7});
+						$(".success").show();
+					}
+					
+				})
+				
+				
+				$(".success_btn2").click(function(){
+					$(".success").hide();
+					$(".defeat").hide();
+				})
+				
+				
+			})
+					
+					
+		</script>
+		<style>
+			/*返回顶部*/
+			.new_mbshop_topandconsult {width: 60px;height: auto;display: block;position: fixed;right: 0;bottom: 30px;overflow: hidden;}
+			.new_mbshop_btn_topred {width: 55px;height: 90px;float: left;display: none;margin-bottom: 10px;background: url(img/Veo_mbshop_spirit_pic.png) 0 -1060px no-repeat;cursor: pointer;}
+			.mbshop_new_btn_onlineConsultred {width: 55px;height: 55px;float: left;display: block;cursor: pointer;background: url(//s.banggo.com/pub7/images/mbshop/common/online_service.png?t=20160603) no-repeat;}
+			body{font-size: 12px;}
+			.details,.mbshop_container{width: 1200px;margin: 0 auto;}
+			.mbshop_container{overflow: hidden;}
+			.mbshop_breadNavLink a {font-size: 12px;}
+			.mbshop_breadNav{margin: 20px auto 0;overflow: hidden;width: 1200px;height: auto;padding: 15px 0 5px 0;clear: both;display: block !important;}
+			a {color: #000000;text-decoration: none;}
+			.mbshop_detail_smallPicList{margin-top: 10px;overflow: hidden;}
+			.mbshop_detail_smallPicList li{float: left;width: 80px;height: 93px;margin-right: 21px;text-align: center;vertical-align:middle}
+			.mbshop_detail_smallPicList ul {float: left;display: block;height: 100px;overflow: hidden;margin: 0;padding: 0;list-style: none;}
+			.mbshop_detail_smallPicList li img{border: 1px #c7c7c7 solid;padding: 0 8px;}
+			.mbshop_detail_bigPicZoom{width: 500px;height: 500px;text-align: center;}
+			.mbshop_detail_pdid{float: left;margin-right: 35px;overflow: hidden;font: normal 14px "微软雅黑", "黑体", "宋体", verdana;color: #999;}
+			.mbshop-share{background: url(img/details/share.png) no-repeat 5px center;font-size: 14px;color: #999;padding-left: 25px;cursor: pointer;}
+			.mbshop_detail_favAndShare_to{float: left;}
+			.mbshop_detail_favAndShare{overflow: hidden;margin-top: 25px;}
+			.mbshop-good{height: 20px;font-size: 14px;color: #f8584f;margin-left: 35px;font-weight: bold;font-family: "微软雅黑";float: left;padding-left: 30px;background: url(img/details/good.png) no-repeat 5px center;}
+			.mbshop_detail_frame_lt,.mbshop_detail_frame_rt{float: left;}
+			.mbshop_detail_frame_lt{margin-right: 50px;width: 500px;}
+			.mbshop_detail_frame_rt{width: 640px;}
+			.mbshop_detail_baseinfo {width: 670px;height: auto;box-sizing: border-box;margin-top: 22px;background: #f6f6f6;}
+			.mbshop_detail_baseinfo ul {width: 670px;padding-bottom: 15px;padding-left: 0;}
+			.mbshop_detail_price b {font: normal 12px "微软雅黑", "黑体", "宋体", verdana;color: #222;}
+			.mbshop_detail_baseinfo ul li{width: 670px;overflow: hidden;padding-top: 15px;box-sizing: border-box;}
+			.mbshop_detail_price{padding: 0 15px;}
+			.mbshop_detail_price strong{font: bold 22px "微软雅黑", "黑体", "宋体", verdana;color: #f8584f;}
+			.mbshop_detail_price i {font: normal 12px "微软雅黑", "黑体", "宋体", verdana;padding-left: 30px;color: #222;margin-left: 0px !important;}
+			.mbshop_detail_price em {font: normal 12px "微软雅黑", "黑体", "宋体", verdana;text-decoration: line-through;color: #696969;}
+			.mbshop_detail_price span {font: normal 12px "微软雅黑", "黑体", "宋体", verdana;float: right;width: auto;height: auto;padding: 3px 10px;color: #fff;background-color: #f84646;margin-top: 5px;margin-right: 30px;}
+			.mbshop_detail_rebate {padding: 15px 15px 0 15px;font: normal 12px "微软雅黑", "黑体", "宋体", verdana;color: #696969;}
+			.mbshop_detail_rebateRule{width: 100px;font: normal 12px "微软雅黑", "黑体", "宋体", verdana;float: right;text-align: right;display: block;margin-top: 7px;cursor: pointer;text-decoration: underline;margin-top: 0;margin-right: 30px;}
+			.mbshop_detail_promotion span {padding: 2px 5px;background: #f84646;color: #fff;overflow: hidden;font: 12px "微软雅黑", "黑体", "宋体", verdana;border-radius: 3px;margin-left: 15px;}
+			.mbshop_detail_promotion a{font-size: 12px;color: #f8584f;line-height: 20px;font-weight: bold;}
+			.mbshop_detail_rebateRule_open{width: 400px;height: auto;position: absolute;display: none;z-index: 111;text-align: left;margin-left: -320px;cursor: auto;padding: 10px;line-height: 150%;background-color: #fff;box-shadow: 0 0 15px #ccc;}
+			.bds_qzone, .bds_tsina, .bds_tqq, .bds_renren, .bds_weixin, .bds_more{background-image: url(img/details/mbshop_sns.png) !important;background-repeat: no-repeat !important;width: 24px !important;height: 24px !important;margin-left: 7px !important;}
+			.bds_qzone{background-position: 0 0 !important;}
+			.bds_tsina{background-position: -39px 0 !important;}
+			.bds_tqq{background-position: -78px 0 !important;}
+			.bds_renren{background-position: -117px 0 !important;}
+			.bds_weixin{background-position: -156px 0 !important;}
+			.bds_more{background-position: -195px 0 !important;}
+			.bdshare-button-style0-32 a{float: left;width: 32px;line-height: 32px;height: 32px;cursor: pointer;margin: 6px 6px 6px 0;text-indent: -100em;overflow: hidden;color: #3a8ceb;}
+			.bds i {font-style: normal;font-size: 14px;color: #ccc;float: left;font-family: "微软雅黑";line-height: 36px;font-weight: bold;}
+			.bdsharebuttonbox p {width: 200px;line-height: 30px;font-size: 14px;font-family: "微软雅黑";color: #242424;background: #f6f6f6;font-weight: bold;padding-left: 5px;box-sizing: border-box;}
+			.bdsharebuttonbox {width: 200px;border: 1px solid #e3e3e3;background: #fff;overflow: hidden;}
+			.bds {width: 100px;float: left;overflow: hidden;}
+			.mbshop_detail_sharePlugin{padding-top: 20px;}
+			
+			
+			/*颜色*/
+			.mbshop_detail_color_list a img {width: 51px;height: 51px;}
+			.mbshop_detail_color_list a {border: 1px solid #999;display: block;width: 51px;height: 51px;float: left;margin-right: 10px;}
+			.mbshop_detail_color_list .color,.mbshop_detail_size_list dd,.mbshop_detail_num dl {overflow: hidden;}
+			.mbshop_detail_colorSizeList .select{border: 1px solid #f60;}
+			.mbshop_detail_color_list dt,.mbshop_detail_size_list dt {font-size: 12px;margin: 20px 0;}
+			.mbshop_detail_color_list dt b,.mbshop_detail_size_list dt b{font-weight: normal;}
+			
+			/*尺码*/
+			.mbshop_detail_size_list dt a {display: block;float: right;padding-left: 20px;background: url(img/details/size.png) no-repeat 0 center;}
+			.mbshop_detail_size_list dd a{font-size: 12px;display: block;float: left;padding: 5px;border: 1px solid #999;margin: 5px 10px 5px 0;cursor: pointer;}
+			.mbshop_detail_colorSizeList .none {cursor: not-allowed;opacity: 0.5;border: 1px dashed #999;}
+			
+			/*购买数量*/
+			.mbshop_detail_buyNum {border: 1px #DCDCDC solid !important;width: 30px;text-align: center;font: normal 12px "微软雅黑", "黑体", "宋体", verdana;margin-top: 2px;height: 19px;line-height: 19px;color: #696969;padding: 2px 5px;}
+			.mbshop_detail_num a {border: 1px #DCDCDC solid;display: inline-block;width: 23px;height: 23px;line-height: 23px;text-align: center;color: #999;font-size: 14px;}
+			.mbshop_detail_num {margin-top: 20px;}
+			.mbshop_detail_num dt,.mbshop_detail_num dd {float: left;}
+			.mbshop_detail_num dt{font-size: 12px;width: 60px;padding-top: 5px;}
+			input,p,h5,h6 {margin: 0;padding: 0;}
+			.mbshop_detail_buyNum_less,.mbshop_detail_buyNum_add{margin: 2px 5px 0 5px;cursor: pointer;}
+			.mbshop_detail_num strong{font-weight: normal;font-size: 12px;}
+			
+			/*库存不足时*/
+			.mbshop_detail_alertclass {width: 300px;border: 1px #ccc solid;background-color: #f5f5f5;padding: 5px;margin-top: 10px;font-size: 12px;}
+			.mbshop_detail_btn_addcart {width: 200px;text-align: center;background-color: #F8584F;font: bold 12px "微软雅黑", "黑体", "宋体", verdana;display: block;color: #fff;border-radius: 2px;margin-top: 20px;padding: 9px 0 10px; cursor: pointer;}
+			.mbshop_detail_keywords li {font-size: 12px;float: left;margin-right: 20px;}
+			.mbshop_detail_keywords {margin-top: 20px;}
+			.mbshop_detail_keywords ul {overflow: hidden;}
+			.mbshop_detail_packageUseAlert {margin-top: 20px;}
+			.mbshop_detail_packageUseAlert li {font-size: 14px;float: left;margin-right: 20px;}
+			..mbshop_detail_packageUseAlert ul {overflow: hidden;}
+			.mbshop_detail_packageUseAlert em {width: 6px;height: 6px;border-radius: 6px;background: #666;display: inline-block;margin-right: 5px;margin-bottom: 2px;}
+			.mbshop_detail_des_right{width: 1000px;float: right;}
+			.mbshop_detail_des_left {width: 178px;float: left;margin-right: 20px;}
+			.mbshop_detail_des{overflow: hidden;}
+			.mbshop_detail_tabNavWrap li{float: left;display: block;text-align: center;padding: 21px 70px 20px 70px;font-size: 14px;height: 19px;cursor: pointer;color: #666;}
+			.mbshop_detail_tabNavWrap ul {overflow: hidden;}
+			.mbshop_detail_tabNav:first-child {padding-left: 120px;}
+			.mbshop_detail_tabNav_addToCart {display: block;width: 200px;height: 60px;background: #f8584f;font-size: 16px;color: #fff;line-height: 60px;text-align: center;float: right;cursor: pointer;display: none;}
+			.detailFloopyfixed_goods_img {width: 40px;height: 40px;overflow: hidden;float: left;border: 1px solid #DCDCDC;}
+			.detailFloopyfixed_goods_img img {width: 100%;}
+			.detailFloopyfixed_goods {float: left;display: none;display: block;width: 290px;overflow: hidden;height: 40px;padding: 10px 0 10px 30px;background: #fff;}
+			.mbshop_detail_des_right .detailFloopyfixed:first-child{padding-left: 0;}
+			.mbshop_detail_des_right .detailFloopyfixed{position: fixed;top: 0;width: 1200px !important;margin-top: 0;margin-left: -200px;background-color: #fff;z-index: 99;}
+			.detailFloopyfixed_goods_info h5 {font-size: 12px;height: 18px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-weight: normal;}
+			.detailFloopyfixed_goods_info p {font-weight: bold;color: #696969;font-size: 14px;margin-top: 4px;}
+			.detailFloopyfixed_goods_info {float: left;margin-left: 8px;width: 240px;}
+			.mbshop_detail_tabNav {height: 60px;box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.16);}
+			.mbshop_detail_tabNav .mbshop_detail_tabNav_hover {color: #f8584f;}
+			.mbshop_detail_boxCon {margin-top: 20px;}
+			#showHistory h6 {width: 160px;height: auto;padding: 7px 10px;margin-top: 20px;background-color: #3F3F3F;color: #fff;font-weight: bold;}
+			/*左边浏览历史*/
+			.mbshop_detail_des_left ul {width: 160px;border: 1px #DCDCDC solid;padding: 0 9px 10px 9px;border-top: none;}
+			.mbshop_detail_des_left ul li {width: 160px;padding-top: 10px;}
+			.mbshop_detail_rec_02 {font: normal 13px "微软雅黑";margin-top: 5px;}
+			.mbshop_detail_des_left ul li b {font: normal 13px "微软雅黑";font-weight: bold;margin-top: 0;}
+			#goods_model {padding: 15px;zoom: 1;width: 740px;margin: 0 auto;}
+			#goods_model .info_list {overflow: hidden;padding-left: 25px;padding: 10px 0 20px 20px;}
+			#goods_model .info_list li {float: left;width: 227px;margin-right: 10px;white-space: nowrap;text-overflow: ellipsis;line-height: 22px;font-size: 12px;}
+			#goods_model .little_show {padding: 10px 0;overflow: hidden;zoom: 1;text-align: center;}
+			.little_show .dl_padding {padding-right: 20px;width: 350px;float: left;}
+			.little_show dl dt {height: 350px;}
+			.little_show dl dd {height: 20px;overflow: hidden;padding: 5px 5px 15px;text-align: center;}
+			#goods_model .color_show {padding: 10px 0;overflow: hidden;}		
+			#goods_model .color_show ul {padding: 0 0 10px 10px;overflow: hidden;}	
+			#goods_model .color_show li {width: 170px;padding-right: 12px;float: left;}
+			#goods_model .color_show li h5 {font-size: 12px;font-weight: normal;height: 20px;overflow: hidden;text-align: center;padding-bottom: 10px;}
+			#goods_model .rule {width: 100%;border-collapse: collapse;border: 1px solid #CCC;width: 306px;}
+			tr {display: table-row;vertical-align: inherit;border-color: inherit;}
+			tbody {display: table-row-group;vertical-align: middle;border-color: inherit;}
+			#goods_model .rule tbody td {border: none;border-right: 1px solid #CCC;text-align: center;line-height: 28px;padding: 6px;color: #333;}
+			.mbshop_detail_des_right .mbshop_detail_commentsFrame {width: 948px;border: 1px #ccc solid;margin-left: 25px;overflow: hidden;}
+			.mbshop_detail_des_right .mbshop_detail_commentsTitle {width: 928px;padding: 10px;float: left;display: block;font: bold 14px "微软雅黑", "黑体", "宋体", verdana;border-bottom: 2px #ccc solid;}
+			.mbshop_detail_des_right .mbshop_detail_commentsCon {width: 928px;padding: 0 10px;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox1 {width: 928px;border-bottom: 1px #ccc dashed;padding: 20px 0;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox1 ul {width: 928px;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox1 ul li {width: 280px;}
+			.mbshop_detail_commentsConBox1 ul .mbshop_detail_commentsStyle1 {font: normal 16px "微软雅黑", "黑体", "宋体", verdana;padding-top: 13px;border-left: none;}
+			.mbshop_detail_commentsConBox1 ul li {width: 372px;padding-left: 20px;float: left;border-left: 1px #ccc solid;}
+			.mbshop_detail_commentsConBox1 ul li b {font: bold 24px arial;color: #f00;}
+			.mbshop_detail_commentsConBox1 ul li i {font: normal 18px arial;color: #666;}
+			.mbshop_detail_commentsConBox1 ul li dl {width: 372px;}
+			.mbshop_detail_commentsConBox1 ul li dl dt {width: 372px;font: bold 12px "微软雅黑", "黑体", "宋体", verdana;}
+			.mbshop_detail_commentsConBox1 ul li dl dd p {font-size: 12px;float: left;display: block;margin: 11px 0;width: 120px;background-image: url(img/details/color/mbshop_appicon_01.png);background-repeat: no-repeat;clear: both;text-align: right;}
+			.mbshop_detail_commentsConBox1 ul li strong {font: bold 12px "微软雅黑", "黑体", "宋体", verdana;float: left;clear: right;}
+			.mbshop_detail_commentsConBox1 ul li span em {font: bold 12px "微软雅黑", "黑体", "宋体", verdana;color: #f00;}
+			.mbshop_detail_commentsConBox1 ul li span {font: normal 12px "微软雅黑", "黑体", "宋体", verdana;clear: both;float: left;display: block;padding: 10px 0;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox1 {width: 928px;border-bottom: 1px #ccc dashed;padding: 20px 0;overflow: hidden;}
+			.mbshop_commentStar0 {background-position: 0 -150px;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox2 {width: 928px;margin-top: 25px;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox2 ul {width: 928px;background-color: #f5f5f5;overflow: hidden;padding: 12px 0;}
+			.mbshop_detail_des_right .mbshop_detail_commentsConBox2 ul li {width: 280px;}
+			.mbshop_detail_commentsConBox2 ul li {width: 372px;font: normal 12px "微软雅黑", "黑体", "宋体", verdana;border-left: 1px #ccc solid;float: left;text-align: center;}
+			.mbshop_detail_commentsConBox2 ul li:first-child {border-left: none;}
+			.mbshop_detail_des_right .mbshop_detail_commentsList {width: 948px;overflow: hidden;}
+			.mbshop_detail_des_right .mbshop_detail_commentsList span {font: bold 12px "微软雅黑", "黑体", "宋体", verdana;width: 948px;float: left;border-top: 1px #ccc solid;border-bottom: 1px #ccc solid;padding: 10px;margin-top: 25px;}
+			.mbshop_detail_des_right .mbshop_detail_commentsListBox {width: 948px;float: left;}
+			.mbshop_detail_des_right .mbshop_detail_con {width: 998px;margin-top: 20px;overflow: hidden;display: block;padding-bottom: 20px;}
+			.mbshop_detail_des_right .info_body {width: 948px;margin-left: 25px;}
+			.info_body h5 {width: 100%;padding-bottom: 10px;font: bold 14px "微软雅黑", "黑体", "宋体", verdana;border-bottom: 1px dotted #CCC;}
+			.info_body p {width: 100%;font: normal 12px "微软雅黑", "黑体", "宋体", verdana;line-height: 18px;color: #333;padding-top: 10px;padding-bottom: 30px;}
+			.mbshop_detail_bigPicPop {width: 500px;height: 500px;float: left;position: absolute;z-index: 999;border: 1px #ccc solid;background-color: #f5f5f5;margin-left: 520px;overflow: hidden;display: none;}
+			.bigger {position: absolute;z-index: 2;width: 249px;height: 249px;background: rgba(255,255,255,0.5);border: 1px solid #f1f1f1;display: none;}
+			.shop_name{font-weight: bold;font-size: 16px;}
+			/*加入购物车成功弹出框*/
+			.success {width: 500px;height: 200px;background: #fff;position: fixed; top: 50%; left: 50%;margin: -150px 0 0 -250px;z-index: 999;overflow: hidden;display: none;}
+			.success_btn1 {width: 50px;font-size: 14px; line-height: 30px;background: red;text-align: center; float: left; margin-left: 100px;}
+			.success_btn2 {width: 50px; font-size: 14px;line-height: 30px;background: black; color: #fff;text-align: center; float : right; margin-right: 100px;cursor: pointer;}
+			.success_btn1 a {color: white;}
+			.defeat {width: 500px;height: 200px;background: #fff;position: fixed; top: 50%; left: 50%;margin: -150px 0 0 -250px;z-index: 999;overflow: hidden;display: none;}
+		</style>
+	</head>
+	<body>
+		<div class="header"></div>
+		<div class="banner">
+			
+		</div>
+		<div class="details-box">
+			<div class="details">
+				<!--面包屑导航-->
+				<div class="mbshop_breadNav">
+					<div class="mbshop_breadNavLink">
+						<a href="#">所有商品</a>>
+						<a href="#">男装</a>>
+						<a href="#">裤装</a>>
+						<a href="#">休闲长裤</a>
+					</div>
+					
+				</div>
+				<!--尺寸颜色加入购物车-->	
+				<div class="mbshop_container">
+					<!--相册分享专区-->
+					<div class="mbshop_detail_frame_lt">
+						<!--相册区-->
+						<div class="mbshop_detail_smallPicThumb">
+							<!--大图-->
+							<div class="mbshop_detail_bigPicArea" style="overflow: hidden;">
+								<div class="mbshop_detail_bigPicZoom" style="float: left;position: relative;">
+									<img src="img/details/big-1.jpg"/>
+									<span class="bigger"></span>
+									<div style="width: 500px;height: 500px;position: absolute;top: 0;left: 0;z-index: 5;" class="big-div"></div>
+								</div>
+								<!--放大镜-->
+								<div class="mbshop_detail_bigPicPop">
+									<img src="img/details/bigbig-1.jpg" style="position: absolute;"/>
+								</div>
+							</div>
+							<!--小图-->
+							<div class="mbshop_detail_smallPicList">
+								<ul>
+									<li>
+										<img src="img/details/1.jpg" style="padding: 0; border: 1px solid #f60;"/>
+									</li>
+									<li>
+										<img src="img/details/2.jpg"/>
+									</li>
+									<li>
+										<img src="img/details/3.jpg"/>
+									</li>
+									<li>
+										<img src="img/details/4.jpg"/>
+									</li>
+									<li style="width: 90px;margin-right: 2px;">
+										<img src="img/details/5.jpg" style="padding: 14px 0; margin-right: 0;"/>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--分享区-->
+						<div class="mbshop_detail_favAndShare">
+							<!--商品编号-->
+							<div class="mbshop_detail_pdid">商品编号：753216</div>
+							<!--分享-->
+							<div class="mbshop_detail_favAndShare_to">
+								<div class="mbshop-share">分享</div>
+								<!--分享到QQ  微信。。。。-->
+								<div class="mbshop_detail_sharePlugin" style="display:none; position: absolute; z-index: 6;">
+									<div class="bdsharebuttonbox bdshare-button-style0-32">
+										<p>分享到</p>
+										<div class="bds">
+											<a href="#" class="bds_qzone"></a>
+											<i>QQ空间</i>
+										</div>
+										<div class="bds">
+											<a href="#" class="bds_tsina"></a>
+											<i>新浪微博</i>
+										</div>
+										<div class="bds"> 
+											<a href="#" class="bds_tqq"></a>
+											<i>腾讯微博</i>
+										</div>
+										<div class="bds">
+											<a href="#" class="bds_renren"></a>
+											<i>人人网</i>
+										</div>
+										<div class="bds">
+											<a href="#" class="bds_weixin"></a>
+											<i>微信</i>
+										</div>
+										<div class="bds">
+											<a href="#" class="bds_more"></a>
+											<i>更多</i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--点赞-->
+							<a href="#" class="mbshop-good">点赞</a>
+						</div>
+					</div>
+					<!--顶部右边内容-->
+					<div class="mbshop_detail_frame_rt">
+						<div id="goods_base_info_panel">
+							<div class="shop_name" >
+								<a href="#">Metersbonwe </a>
+								<b>男口袋细节送腰带修身长裤</b>
+							</div>
+							<div class="mbshop_detail_baseinfo">
+								<ul>
+									<li class="mbshop_detail_price">
+										<b>售价</b>
+										<strong>￥ <strong class="price">169</strong></strong>
+										<i>吊牌价</i>
+										<em>￥ 199</em>
+										<span>8.5折</span>
+									</li>
+									<li class="mbshop_detail_rebate"> vip价: &nbsp;￥  160.55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svip价: &nbsp;￥  152.1
+										<div class="mbshop_detail_rebateRule">会员规则
+											<div class="mbshop_detail_rebateRule_open">
+												            在有效期1年内：<br />
+												             累计购物满1000元则升级为VIP；未满1000元则降为普通会员。<br />
+												            在有效期1年内：<br />
+												            累计购物满2000元则升级为SVIP；如累计购物1000~1999元，则降为VIP；如累计购物未满1000元则降为普通会员。<br />
+											</div>
+										</div>
+									</li>
+									<li class="mbshop_detail_promotion">
+										<span>促销</span>
+										<a href="#">· 满2件加9元换购挂烫机</a>
+									</li>
+								</ul>
+							</div>
+							<div id="color_size_panel">
+								<div class="mbshop_detail_colorSizeList">
+									<!--颜色-->
+									<dl class="mbshop_detail_color_list">
+										<dt>颜色：<b id="colorSelected">请选择颜色</b></dt>
+										<dd class="color">
+											<a id="color_30" attr_value="石狮灰" attr_sn = "753216" stock_num="93" code="30">
+												<img src="img/details/753216_30_00--w_90_h_90.jpg" mid_src="img/details/753216_30_00--w_500.jpg" large_src="img/details/753216_30_00--w_1000_h_1000.jpg"/>
+											</a>
+											<a id="color_70" attr_value="席拉红" attr_sn = "753216" stock_num="248" code="70">
+												<img src="img/details/753216_70_00--w_90_h_90.jpg" mid_src="img/details/753216_70_00--w_500.jpg" large_src="img/details/753216_70_00--w_1000_h_1000.jpg"/>
+											</a>
+											<a id="color_90" attr_value="影黑" attr_sn = "753216" stock_num="583" code="90">
+												<img src="img/details/753216_90_00--w_90_h_90.jpg" mid_src="img/details/753216_90_00--w_500.jpg" large_src="img/details/753216_90_00--w_1000_h_1000.jpg"/>
+											</a>
+											<a id="color_91" attr_value="鸢尾蓝黑" attr_sn = "753216" stock_num="560" code="91">
+												<img src="img/details/753216_91_00--w_90_h_90.jpg" mid_src="img/details/753216_91_00--w_500.jpg" large_src="img/details/753216_91_00--w_1000_h_1000.jpg"/>
+											</a>
+										</dd>
+									</dl>
+									<!--尺寸-->
+									<dl class="mbshop_detail_size_list">
+										<dt>尺码：<b id="colorSelected">请选择尺码</b><a href="#">尺码选择助手</a></dt>
+										<dd class="size">
+											<a id="size_582" attr_value="M:170/76A" attr_sn="753216" code="583" stock_num="227">M:170/76A</a>
+											<a id="size_583" attr_value="M:170/76A" attr_sn="753216" code="583" stock_num="100">M:170/76A</a>
+											<a id="size_584" attr_value="L:175/80A" attr_sn="753216" code="583" stock_num="4">L:175/80A</a>
+											<a id="size_585" attr_value="XL:180/86A" attr_sn="753216" code="583" stock_num="53">XL:180/86A</a>
+											<a id="size_585" attr_value="XL:180/92A" attr_sn="753216" code="583" stock_num="23" class="none">XL:180/92A</a>
+											<a id="size_585" attr_value="XXXL:190/98B" attr_sn="753216" code="583" stock_num="214" class="none">XXXL:190/98B</a>
+											<a id="size_585" attr_value="M:170/74A" attr_sn="753216" code="583" stock_num="212">M:170/74A</a>
+											<a id="size_585" attr_value="M:170/78A" attr_sn="753216" code="583" stock_num="237">M:170/78A</a>
+											<a id="size_585" attr_value="L:175/82A" attr_sn="753216" code="583" stock_num="243">L:175/82A</a>
+											<a id="size_585" attr_value="L:175/84A" attr_sn="753216" code="583" stock_num="21" class="none">L:175/84A</a>
+											<a id="size_585" attr_value="XL:180/88A" attr_sn="753216" code="583" stock_num="212">XL:180/88A</a>
+											<a id="size_585" attr_value="S:165/68A" attr_sn="753216" code="583" stock_num="12">S:165/68A</a>
+											<a id="size_585" attr_value="XXL:185/94B" attr_sn="753216" code="583" stock_num="3" class="none">XXL:185/94B</a>
+											<a id="size_585" attr_value="XS:160/66A" attr_sn="753216" code="583" stock_num="42">XS:160/66A</a>
+											<a id="size_585" attr_value="XXXL:190/102B" attr_sn="753216" code="583" stock_num="53">XXXL:190/102B</a>
+										</dd>
+									</dl>
+								</div>
+								<!--购买数量-->
+								<div class="mbshop_detail_num">
+									<dl>
+										<dt>购买数量：</dt>
+										<dd>
+											<a class="mbshop_detail_buyNum_less" title="减少">-</a>
+											<input class="mbshop_detail_buyNum" type="text" value="1" />
+											<a class="mbshop_detail_buyNum_add" title="增加">+</a>
+											<strong>（库存剩余
+												<span>1475</span>
+												件）
+											</strong>
+										</dd>
+									</dl>
+									<div class="mbshop_detail_alertclass" style="display: none;">对不起数量至少为1件</div>
+								</div>
+								<!--加入购物车-->
+								<div class="mbshop_detail_btn_bag">
+									<a  class="mbshop_detail_btn_addcart">加入购物车</a>
+								</div>
+							</div>	
+						</div>
+						<div class="mbshop_detail_keywords">
+							<ul>
+								<li>浏览更多：</li>
+								<li><a href="#">休闲长裤</a></li>
+							</ul>
+						</div>
+						<div class="mbshop_detail_packageUseAlert">
+							<ul>
+								<li>温馨提示：</li>
+								<li><em></em>此商品不可使用积分</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--商品评价之类-->
+				<div class="mbshop_detail_des">
+					<!--右边-->
+					<div class="mbshop_detail_des_right" style="border: 1px solid #E8E8E8;border-top: 0;">
+						<!--商品详情 评价-->
+						<div class="mbshop_detail_tabNavWrap">
+							<ul class="mbshop_detail_tabNav">
+								<div class="detailFloopyfixed_goods">
+									<div class="detailFloopyfixed_goods_img">
+										<img src="img/details/1.jpg"/>
+									</div>
+									<div class="detailFloopyfixed_goods_info">
+										<h5>Metersbonwe 【买3免1】男口袋细节送腰带修身长裤</h5>
+										<p>￥ 169</p>
+									</div>
+								</div>
+								<li class="gitPage mbshop_detail_tabNav_hover">商品详情</li>
+								<li>商品评价(0)</li>
+								<li>购买须知</li>
+								<span class="mbshop_detail_tabNav_addToCart">选择商品信息</span>
+							</ul>
+						</div>
+						<!--商品详细图片 评论-->
+						<div class="mbshop_detail_boxCon">
+							<!--商品图片-->
+							<div class="mbshop_detail_con">
+								<a href="#">
+									<img src="img/details/spxqy1022.png" style="display: block;"/>
+								</a>
+								<a href="#">
+									<img src="img/details/xqy222.jpg"/>
+								</a>
+								<!--商品信息-->
+								<div id="goods_model" >
+									<div>
+										<img src="img/details/spxx.png" alt="商品信息" />
+									</div>
+									<ul class="info_list">
+										<li>
+											<strong>品牌：</strong>
+											Metersbonwe
+										</li>
+										<li>
+											<strong>款名：</strong>
+											男口袋细节送腰带修身长裤
+										</li>
+										<li>
+											<strong>款号：</strong>
+											753216
+										</li>
+										<li>
+											<strong>分类：</strong>
+											Metersbonwe >
+											<a href="#">休闲长裤</a>
+										</li>
+										<li>
+											<strong>吊牌价：</strong>
+											199.00
+										</li>
+										<li>
+											<strong>版型：</strong>
+											修身
+										</li>
+										<li>
+											<strong>季节：</strong>
+											秋季
+										</li>
+										<li>
+											<strong>系列：</strong>
+											都市
+										</li>
+										<li>
+											<strong>性别：</strong>
+											男款
+										</li>
+									</ul>
+									<!--品牌介绍-->
+									<div>
+										<img src="img/details/ppjs.png" />
+									</div>
+									<div>
+										美特斯邦威，不走寻常路！旨在为18-25岁的年轻消费者打造个性、流行的服饰产品，立志成为中国休闲服市场的领导品牌！     
+									</div>
+									<div>
+										<img src="img/details/bjtj.png" />
+									</div>
+									<div>
+										本款采用棉弹细斜纹面料，表面光洁，品质感强。修身版型，送腰带，袋口及后袋丰富的细节设计。腰里撞细条纹，干净简洁。四个色可供选择。         
+									</div>
+									<div>
+										<img src="img/details/mtzs.png" />
+									</div>
+									<!--模特展示-->
+									<div>
+										<img src="img/details/model/753216_30--w_730.jpg" />
+										<img src="img/details/model/753216_31--w_730.jpg" />
+										<img src="img/details/model/753216_32--w_730.jpg" />
+										<img src="img/details/model/753216_33--w_730.jpg" />
+										<img src="img/details/model/753216_34--w_730.jpg" />
+										<img src="img/details/model/753216_35--w_730.jpg" />
+										<img src="img/details/model/753216_36--w_730.jpg" />
+										<img src="img/details/model/753216_37--w_730.jpg" />
+										<img src="img/details/model/753216_38--w_730.jpg" />
+										<img src="img/details/model/753216_39--w_730.jpg" />
+										<img src="img/details/model/753216_40--w_730.jpg" />
+										<img src="img/details/model/753216_41--w_730.jpg" />
+										<img src="img/details/model/753216_42--w_730.jpg" />
+										<img src="img/details/model/753216_43--w_730.jpg" />
+									</div>
+									<!--细节展示-->
+									<div>
+										<img src="img/details/xjzs.png" />
+									</div>
+									<div class="little_show">
+										<img src="img/details/xijie/753216_01--w_730.jpg" />
+										<img src="img/details/xijie/753216_02--w_730.jpg" />
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_03--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_04--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_05--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_06--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_07--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_08--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_a--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_b--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_e--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+										<dl class="dl_padding">
+											<dt>
+												<img src="img/details/xijie/753216_f--w_350.jpg" />
+											</dt>
+											<dd></dd>
+										</dl>
+									</div>
+									<!--颜色选择-->
+									<div>
+										<img src="img/details/color/ysxz.png"/>
+									</div>
+									<div class="color_show">
+										<ul>
+											<li>
+												<img src="img/details/color/753216_90_00--w_160.jpg" />
+												<h5>影黑</h5>
+											</li>
+											<li>
+												<img src="img/details/color/753216_70_00--w_160.jpg" />
+												<h5>席拉红</h5>
+											</li>
+											<li>
+												<img src="img/details/color/753216_30_00--w_160.jpg" />
+												<h5>石狮灰</h5>
+											</li>
+											<li>
+												<img src="img/details/color/753216_91_00--w_160.jpg" />
+												<h5>鸢尾蓝黑</h5>
+											</li>
+										</ul>
+									</div>
+									<!--尺码规格-->
+									<div>
+										<img src="img/details/color/cmgg.png" />
+									</div>
+									<div>
+										<table cellspacing="0" cellpadding="0" class="rule">
+											<tbody>
+												<tr>
+													<td>基本型号</td>
+													<td>尺码</td>
+													<td>腰围</td>
+													<td>裤长</td>
+													<td>臀围</td>
+													<td>前浪</td>
+													<td>脚口</td>
+												</tr>
+												<tr>
+													<td>160/64A</td>
+													<td>25</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>160/64A</td>
+													<td>25</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>160/66A</td>
+													<td>26</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+												<tr>
+													<td>165/68A</td>
+													<td>27</td>
+													<td>70.5</td>
+													<td>99</td>
+													<td>85.5</td>
+													<td>23.5</td>
+													<td>15.6</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--测量方法-->
+									<div>
+										<img src="img/details/color/clff.png" />
+									</div>
+									<div>
+										<img src="img/details/color/changku--w_730.jpg" />
+									</div>
+									<!--色差问题-->
+									<div>
+										<img src="img/details/color/0704-1.jpg" />
+										<img src="img/details/color/WSWSEwRE.jpg" />
+									</div>
+								</div>
+							</div>
+							<!--顾客评价-->
+							<div class="mbshop_detail_con goods_comment_lists_detail">
+								<div class="mbshop_detail_commentsFrame">
+									<span class="mbshop_detail_commentsTitle">顾客评价</span>
+									<div class="mbshop_detail_commentsCon">
+										<div class="mbshop_detail_commentsConBox1">
+											<ul>
+												<li class="mbshop_detail_commentsStyle1">
+													商品满意度
+													<b>0</b>
+													分 共
+													<i>0</i>
+													人评分
+												</li>
+												<li>
+													<dl>
+														<dt>商品满意度</dt>
+														<dd><p style="height: 15px;" class="mbshop_commentStar0"></p></dd>
+													</dl>
+												</li>
+												<li>
+													<strong>该宝贝怎么样？</strong>
+													<span>
+														发表评价最高可获得
+														<em>15</em>
+														积分
+													</span>
+												</li>
+											</ul>
+										</div>
+										<div class="mbshop_detail_commentsConBox2">
+											<ul>
+												<li>0.00% 的用户认为实际尺码[偏小]</li>
+												<li>100% 的用户认为实际尺码[合适]</li>
+												<li>0.00% 的用户认为实际尺码[偏大]</li>
+											</ul>
+										</div>
+										<!--评论列表开始-->
+										<div class="mbshop_detail_commentsList">
+											<span>全部评论（0）条</span>
+											<div>
+												暂无数据
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--购买须知-->
+							<div class="mbshop_detail_con">
+								<div class="info_body">
+									<h5>尺码误差</h5>
+									<p>由于尺寸是我们手工测量，可能存在1-2厘米的误差，如果不能接受误差的朋友请勿拍。</p>
+									<h5>色差问题</h5>
+									<p>网络购物色差难以避免，我们尽量做到最小色差，完全不能接受色差的朋友请谨慎购买，以免收到货后发生纠纷。</p>
+									<h5>运货方式</h5>
+									<p>江浙沪快递方式费用6元，并支持货到付款，费用10元，除江浙沪外全国其他地区普通快递10元，EMS15元起，港澳台及海外地区35元起，系统将根据邮编自动匹配快递。</p>
+									<h5>收货提醒</h5>
+									<p>请务必在签收快递的时候确认商品完好无损后在签收，如发现缺货、少货可拒绝签单并联系邦购客服。</p>
+									<h5>发货方式</h5>
+									<p>全年无休，假日能发货，晚间会根据订单及快递规律做相应机动延迟。</p>
+									<h5>发票问题</h5>
+									<p>如需开具发票，请提交订单时选择需要发票，否则视为不需要。</p>
+									<h5>付款减库存</h5>
+									<p>邦购网库存机制为付款后减库存，购买成功以买家付款到邦购网时间为准，拍下不付款的商品无法保留其购买权利。</p>
+									<h5>退换货问题</h5>
+									<p>如果您的订单需要办理退换货，请您务必先通过电话或在线客服的方式与邦购客服中心联系。客服人员会帮您登记退换货单。
+										<br />
+										内衣、内裤以及袜子此类贴身产品一经购买如无质量问题不予以退换。
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--左边-->
+					<div class="mbshop_detail_des_left">
+						<div id="showHistory">
+							<h6>最近浏览的商品</h6>
+							<ul>
+								<li>
+									<a href="#">
+										<img src="img/details/753216_00--w_160_h_200.jpg"/>
+									</a>
+									<a href="#" class="mbshop_detail_rec_02">男口袋细节送腰带修身长裤</a>
+									<b>￥169.00</b>
+								</li>
+								<li>
+									<a href="#">
+										<img src="img/details/548265_00--w_160_h_200.jpg"/>
+									</a>
+									<a href="#" class="mbshop_detail_rec_02">男口袋细节送腰带修身长裤</a>
+									<b>￥349.00</b>
+								</li>
+								<li>
+									<a href="#">
+										<img src="img/details/245185_00--w_160_h_200.jpg"/>
+									</a>
+									<a href="#" class="mbshop_detail_rec_02">K系列男冲锋衣</a>
+									<b>￥404.00</b>
+								</li>
+								<li>
+									<a href="#">
+										<img src="img/details/539898_00--w_160_h_200.jpg"/>
+									</a>
+									<a href="#" class="mbshop_detail_rec_02">女短款双面呢大衣</a>
+									<b>￥1399.00</b>
+								</li>
+								<li>
+									<a href="#">
+										<img src="img/details/245686_00--w_160_h_200.jpg"/>
+									</a>
+									<a href="#" class="mbshop_detail_rec_02">K系列女冲锋衣</a>
+									<b>￥404.00</b>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			
+			
+			
+		</div>
+		<div class="footer"></div>
+		<!--返回顶部-->
+		<div class="new_mbshop_topandconsult">
+			<a class="new_mbshop_btn_topred" title="回到顶部"></a>
+			<a class="mbshop_new_btn_onlineConsultred" title="在线咨询"></a>
+		</div>
+		<div class="defeat">
+			<div style="font-size: 20px;font-weight: bold;color: #000;width: 200px;margin: 50px auto;">请先选择颜色和尺寸</div>
+			<div class="success_btn2" style="margin-right: 230px;">关闭</div>
+		</div>
+		<div class="success">
+			<div style="font-size: 20px;font-weight: bold;color: #000;width: 200px;margin: 50px auto;">恭喜你添加购物车成功</div>
+			<div class="success_btn1"><a href="shop.html">去结算</a></div>
+			<div class="success_btn2">关闭</div>
+		</div>
+	</body>
+</html>

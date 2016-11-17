@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/header.css" />
+		<script type="text/javascript" src="js/jquery.cookie.js" ></script>
+		<script>
+			$(function(){
+				$(".h-right ul li").hover(function(){
+					$(this).find(".load").show();
+					$(this).find("a").css("color","#000");
+				},function(){
+					$(this).find(".load").hide();
+					$(this).find("a").css("color","#999");
+				})
+				
+				if($.cookie('shop_num')=="null"){
+					$(".h-c-3 span").text(0);
+				}else{
+					$(".h-c-3 span").text($.cookie('shop_num'));
+				}
+				
+				
+				if($.cookie("username") != null){
+					$(".h-r-1 li").eq(0).find("a").text($.cookie("username"));
+				}
+				
+			})
+		</script>
+	</head>
+	<body>
+		<div class="wrrap">
+			<!--顶部-->
+			<div class="header-top">
+				<div class="h-left">
+					<p>欢迎来到邦购,全场满199包邮</p>
+				</div>
+				<div class="h-right">
+					<ul class="h-r-1">
+						<li><a href="login.html">登录</a>
+							<ul class="load" style="left: 10px; width: 90px;">
+								<li>QQ账户登录</li>
+								<li>支付宝登录</li>
+								<li>微信账号登录</li>
+							</ul>
+						</li>
+						<li><a href="register.html">注册</a></li>
+						<li><a href="#" class="bg">我的邦购</a>
+							<ul class="load" style="left: 10px;">
+								<li>我的订单</li>
+								<li>我的积分</li>
+								<li>我的点赞</li>
+								<li>我的地址</li>
+							</ul>
+						</li>
+						<li><a href="#">会员中心</a></li>
+						<li>
+							<a href="#" class="bg1">
+								<b style="width:9px;height:18px;background:url(img/Iphone-vertical.png) 0 0 no-repeat; position: absolute; left:0;top: 0;"></b>
+							下载APP</a>
+							<div class="load" style="left: 0px;">
+								<img src="img/mbshop_pic_erweima.jpg" />
+							</div>
+						</li>
+						<li><a href="#">微博</a></li>
+						<li><a href="#">微信</a>
+							<div class="load" style="right: 10px;">
+								<img src="img/mbshop_pic_mobile.png" />
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+		<!--顶部的中部-->
+		<div class="header-center">
+			<div class="h-c-1"><a href="index.html"><img src="img/mbshop_new_logo2.png" /></a></div>
+			<div class="h-c-2">
+				<div class="c-2-1">
+					<input type="text" placeholder="折后一件85折 两件75折" id="word"/>
+					<input type="button" value="搜索" id="btn1"/>
+					<i></i>
+				</div>
+				<div class="c-2-2">
+					<a href="#">秋冬上新</a>
+					<span>|</span>
+					<a href="#" class="red">夹克</a>
+					<span>|</span>
+					<a href="#">衬衫</a>
+					<span>|</span>
+					<a href="#">休闲长裤</a>
+					<span>|</span>
+					<a href="#" class="red">毛衣</a>
+					<span>|</span>
+					<a href="#">手机专享</a>
+				</div>
+			</div>
+			<div class="h-c-3">
+				<div>
+					<a href="shop.html">购物袋<span>0</span>件</a>
+				</div>
+			</div>
+		</div>
+		<!--顶部的下部-->
+		<div class="line">
+			<div class="nav">
+			<ul>
+				<li class="nav1">
+					<i></i>
+					<span>商品分类</span>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/sy.png"/>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/sporthot.gif"/>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/rmpp.png"/>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/bangbang.gif"/>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/ggwxrzx.gif"/>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/sale.png"/>
+					</a>
+				</li>
+				<li style="float:right;">
+					<a href="#">
+						<img src="img/sjzx.gif"/>
+					</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+		
+	</body>
+</html>
